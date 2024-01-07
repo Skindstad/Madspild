@@ -1,7 +1,7 @@
 Drop Database FoodWaste;
 Create Database FoodWaste;
-
-Create Table AccessRight 
+use FoodWaste;
+Create Table Access 
 (
 Id int not null Identity(1,1) Primary key,
 AccessName varchar(255) not null
@@ -17,7 +17,7 @@ Create Table Users
 Id int not null Identity(1,1) Primary key,
 Email varchar(255) Not Null,
 Password varchar(255) Not null,
-AccessRight int not null FOREIGN KEY REFERENCES AccessRight(Id),
+AccessRight int not null FOREIGN KEY REFERENCES Access(Id),
 PersonName Varchar(255) not null,
 HomePhone nchar(10) not null,
 WorkPhone nchar(10) not null,
@@ -43,21 +43,22 @@ PicturePath varchar(255)
 );
 
 
-Create Table Orders
+/*Create Table Orders
 (
 Id int not null Identity(1,1) Primary key,
 PersonId int not null FOREIGN KEY REFERENCES Users(Id),
 FullPrice float not null,
 BoughtDato nchar(10) not null
-)
+)*/
 
-Create table PersonGoods 
+Create table Basket 
 (
 Id int not null Identity(1,1) Primary key,
 PersonId int not null FOREIGN KEY REFERENCES Users(Id),
 ProductId int not null FOREIGN KEY REFERENCES Goods(Id),
+Price float not null,
 Amount int not null,
-BasketDato nchar(10) not null,
+BasketDato nchar(12) not null,
 Bought Varchar(5) DEFAULT  'false',
-BoughtDato int FOREIGN KEY REFERENCES Orders(Id)
+BoughtDato nchar(12),
 )
