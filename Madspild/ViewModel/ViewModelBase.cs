@@ -14,19 +14,31 @@ namespace Madspild.ViewModel
     public delegate void WarningMessage(object sender, MessageEventArgs e);
     public delegate void ErrorMessage(object sender, MessageEventArgs e);
 
-    public class MessageEventArgs(string message) : EventArgs()
+    public class MessageEventArgs : EventArgs
     {
-        public string Message { get; private set; } = message;
+        public string Message { get; private set; }
+
+        public MessageEventArgs(string message)
+          : base()
+        {
+            Message = message;
+        }
     }
 
-    public class RelayCommand(Action<object> execute, Predicate<object> canExecute) : ICommand
+    public class RelayCommand : ICommand
     {
-        readonly Action<object> execute = execute;
-        readonly Predicate<object> canExecute = canExecute;
+        readonly Action<object> execute;
+        readonly Predicate<object> canExecute;
 
         public RelayCommand(Action<object> execute)
           : this(execute, null)
         {
+        }
+
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+        {
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
         public bool CanExecute(object parameter)
