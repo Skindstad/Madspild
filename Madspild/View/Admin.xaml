@@ -24,9 +24,8 @@
         <TextBox Name="txtNavn" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Name}"/>
         <TextBox Name="txtPris" Grid.Column="1" Grid.Row="1" Width="80" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Price}"/>
         <TextBox Name="txtKategori" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Category}"/>
-        <Button Name="cmdSeek" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Select" Margin="5,20,5,20" Command="{Binding Path=SelectCommand}" />
-        <Button Name="cmdAdd" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Insert" Margin="5,20,85,20" Command="{Binding Path=InsertCommand}" />
-        <Button Name="cmdUpdate" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Update" Margin="5,20,165,20" Command="{Binding Path=UpdateCommand}" />
+        <Button Name="cmdSearch" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Search" Margin="5,20,5,20" Command="{Binding Path=SearchCommand}" />
+        <Button Name="cmdRemove" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Remove" Margin="5,20,85,20" Command="{Binding Path=RemoveCommand}" />
         <Button Name="cmdClear" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Clear" Margin="5,20,325,20" Command="{Binding Path=ClearCommand}" />
         <DataGrid Name="grid" Grid.Row="4" Grid.ColumnSpan="3" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" SelectedItem="{Binding SelectedModel, Mode=TwoWay}" ItemsSource="{Binding Inventory}" >
             <DataGrid.RowStyle>

@@ -11,7 +11,7 @@ namespace Madspild.ViewModel
 {
     public class AdminViewModel : ViewModelBase, IDataErrorInfo
     {
-        public RelayCommand SelectCommand { get; private set; }
+        public RelayCommand SearchCommand { get; private set; }
         public RelayCommand RemoveCommand { get; private set; }
         public RelayCommand InsertCommand { get; private set; }
         public RelayCommand ClearCommand { get; private set; }
@@ -27,7 +27,7 @@ namespace Madspild.ViewModel
             repository.RepositoryChanged += ModelChanged;
             //Search();
             UpdateCommand = new RelayCommand(p => Update(), p => CanUpdate());
-            SelectCommand = new RelayCommand(p => Search());
+            SearchCommand = new RelayCommand(p => Search());
             ClearCommand = new RelayCommand(p => Clear());
             InsertCommand = new RelayCommand(p => Add(), p => CanAdd());
             RemoveCommand = new RelayCommand(p => Remove(), p => CanRemove());
