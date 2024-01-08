@@ -34,9 +34,8 @@
 
         <DataGrid Name="grid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding BindData}">
             <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <EventSetter Event="MouseDoubleClick" Handler="grid_MouseDoubleClick"/>
-                </Style>
+                    <Style TargetType="{x:Type DataGridRow}">
+                    </Style>
             </DataGrid.RowStyle>
         </DataGrid>
     </Grid>

@@ -16,6 +16,7 @@ namespace Madspild.ViewModel
         public RelayCommand InsertCommand { get; private set; }
         public RelayCommand ClearCommand { get; private set; }
         public RelayCommand UpdateCommand { get; private set; }
+        public RelayCommand CreateCommand { get; private set; }
 
         private Goods admin = new Goods();
         private GoodsRepository repository = new();
@@ -23,13 +24,14 @@ namespace Madspild.ViewModel
 
         public AdminViewModel()
         {
-           // repository.RepositoryChanged += ModelChanged;
+           repository.RepositoryChanged += ModelChanged;
             Search();
             UpdateCommand = new RelayCommand(p => Update(), p => CanUpdate());
             SelectCommand = new RelayCommand(p => Search());
-           // ClearCommand = new RelayCommand(p => Clear());
+            ClearCommand = new RelayCommand(p => Clear());
             InsertCommand = new RelayCommand(p => Add(), p => CanAdd());
             RemoveCommand = new RelayCommand(p => Remove(), p => CanRemove());
+            CreateCommand = new RelayCommand(p => (new CreateWindow()).ShowDialog());
         }
 
         public ObservableCollection<Goods> Inventory
