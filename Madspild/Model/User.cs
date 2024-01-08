@@ -14,7 +14,7 @@ namespace Madspild.Model
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string AccessRight { get; set; }
+        public string Access { get; set; }
         public string HomePhone { get; set; }
         public string WorkPhone { get; set; }
         public string Address { get; set; }
@@ -28,20 +28,20 @@ namespace Madspild.Model
             Name = "";
             Email = "";
             Password = "";
-            AccessRight = "";
+            Access = "";
             HomePhone = "";
             WorkPhone = "";
             Address = "";
             Zipcode = "";
             City = "";
         }
-        public User(string id, string name, string email, string password, string accessRight, string homePhone, string workPhone, string address, string zipcode, string city)
+        public User(string id, string name, string email, string password, string access, string homePhone, string workPhone, string address, string zipcode, string city)
         {
             Id = id;
             Name = name;
             Email = email;
             Password = password;
-            AccessRight = accessRight;
+            Access = access;
             HomePhone = homePhone;
             WorkPhone = workPhone;
             Address = address;
@@ -71,7 +71,7 @@ namespace Madspild.Model
             return Id.CompareTo(user.Id);
         }
 
-        private static readonly string[] validatedProperties = { "Name", "Email", "Password", "AccessRight", "HomePhone", "WorkPhone", "Address", "Zipcode" };
+        private static readonly string[] validatedProperties = { "Name", "Email", "Password", "Access", "HomePhone", "WorkPhone", "Address", "Zipcode" };
 
         public bool IsValid
         {
@@ -105,7 +105,7 @@ namespace Madspild.Model
                 case "Name": return ValidateName();
                 case "Email": return ValidateEmail();
                 case "Password": return ValidatePassword();
-                case "AccessRight": return ValidateAccessRight();
+                case "Access": return ValidateAccess();
                 case "HomePhone": return ValidateHomePhone();
                 case "WorkPhone": return ValidateWorkPhone();
                 case "Address": return ValidateAddress();
@@ -143,9 +143,9 @@ namespace Madspild.Model
             return null;
         }
 
-        private string ValidateAccessRight()
+        private string ValidateAccess()
         {
-            if (AccessRight == null)
+            if (Access == null)
             {
                 return "Access Right can not be null";
             }
