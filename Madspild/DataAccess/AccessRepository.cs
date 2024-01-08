@@ -28,17 +28,17 @@ namespace Madspild.DataAccess
         {
             try
             {
-                SqlCommand command = new SqlCommand("SELECT Id, AccessName FROM AccessRight WHERE AccessName LIKE @Name", connection);
+                SqlCommand command = new SqlCommand("SELECT Id, AccessName FROM Access WHERE AccessName LIKE @Name", connection);
                 command.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 list.Clear();
                 while (reader.Read()) list.Add(new Access(reader[0].ToString(), reader[1].ToString()));
-                OnChanged(DbOperation.SELECT, DbModeltype.AccessRights);
+                OnChanged(DbOperation.SELECT, DbModeltype.Access);
             }
             catch (Exception ex)
             {
-                throw new DbException("Error in AccessRight repositiory: " + ex.Message);
+                throw new DbException("Error in Access repositiory: " + ex.Message);
             }
             finally
             {
@@ -55,7 +55,7 @@ namespace Madspild.DataAccess
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand("INSERT INTO AccessRight (AccessName) VALUES (@Name)", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO Access (AccessName) VALUES (@Name)", connection);
                     command.Parameters.Add(CreateParam("@Name", name, SqlDbType.NVarChar));
 
                     connection.Open();
@@ -63,7 +63,7 @@ namespace Madspild.DataAccess
                     {
                         list.Add(access);
                         list.Sort();
-                        OnChanged(DbOperation.INSERT, DbModeltype.AccessRights);
+                        OnChanged(DbOperation.INSERT, DbModeltype.Access);
                         return;
                     }
                     error = string.Format("{0} could not be inserted in the database", name);
@@ -78,7 +78,7 @@ namespace Madspild.DataAccess
                 }
             }
             else error = "Illegal value for Name";
-            throw new DbException("Error in AccessRight repositiory: " + error);
+            throw new DbException("Error in Access repositiory: " + error);
         }
 
         public void Update(string name)
@@ -90,7 +90,7 @@ namespace Madspild.DataAccess
                 try
                 {
                     string id = GetId(name);
-                    SqlCommand command = new SqlCommand("UPDATE AccessRight SET AccessName = @Name WHERE Id = @Id", connection);
+                    SqlCommand command = new SqlCommand("UPDATE Access SET AccessName = @Name WHERE Id = @Id", connection);
                     command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Name", name, SqlDbType.NVarChar));
                     connection.Open();
@@ -102,7 +102,7 @@ namespace Madspild.DataAccess
                                 list[i].Name = name;
                                 break;
                             }
-                        OnChanged(DbOperation.UPDATE, DbModeltype.AccessRights);
+                        OnChanged(DbOperation.UPDATE, DbModeltype.Access);
                         return;
                     }
                     error = string.Format("Access {0} could not be updated", id);
@@ -117,7 +117,7 @@ namespace Madspild.DataAccess
                 }
             }
             else error = "Illegal value for name";
-            throw new DbException("Error in AccessRight repositiory: " + error);
+            throw new DbException("Error in Access repositiory: " + error);
         }
 
         public void Remove(string name)
@@ -126,16 +126,16 @@ namespace Madspild.DataAccess
             try
             {
                 string id = GetId(name);
-                SqlCommand command = new SqlCommand("DELETE FROM AccessRight WHERE Id = @Id", connection);
+                SqlCommand command = new SqlCommand("DELETE FROM Access WHERE Id = @Id", connection);
                 command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
                 connection.Open();
                 if (command.ExecuteNonQuery() == 1)
                 {
                     list.Remove(new Access(id, ""));
-                    OnChanged(DbOperation.DELETE, DbModeltype.AccessRights);
+                    OnChanged(DbOperation.DELETE, DbModeltype.Access);
                     return;
                 }
-                error = string.Format("AccessRight {0} could not be deleted", id);
+                error = string.Format("Access{0} could not be deleted", id);
             }
             catch (Exception ex)
             {
@@ -145,7 +145,7 @@ namespace Madspild.DataAccess
             {
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
-            throw new DbException("Error in AccessRight repositiory: " + error);
+            throw new DbException("Error in Access repositiory: " + error);
         }
 
         public static string GetName(string id)
@@ -154,7 +154,7 @@ namespace Madspild.DataAccess
             try
             {
                 connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
-                SqlCommand command = new SqlCommand("SELECT AccessName FROM AccessRight WHERE Id = @Id", connection);
+                SqlCommand command = new SqlCommand("SELECT AccessName FROM Access WHERE Id = @Id", connection);
                 SqlParameter param = new SqlParameter("@Id", SqlDbType.NVarChar);
                 param.Value = id;
                 command.Parameters.Add(param);
@@ -178,7 +178,7 @@ namespace Madspild.DataAccess
             try
             {
                 connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
-                SqlCommand command = new SqlCommand("SELECT Id FROM AccessRight WHERE AccessName = @Name", connection);
+                SqlCommand command = new SqlCommand("SELECT Id FROM Access WHERE AccessName = @Name", connection);
                 SqlParameter param = new SqlParameter("@Name", SqlDbType.NVarChar);
                 param.Value = name;
                 command.Parameters.Add(param);

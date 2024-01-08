@@ -33,11 +33,11 @@
         <Button Grid.Row="1" Grid.Column="8" Width="60" Height="22" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Search" Command="{Binding Path=SearchCommand}" />
 
         <DataGrid Name="grid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding BindData}">
-            <DataGrid.RowStyle>
+            <!--<DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <EventSetter Event="MouseDoubleClick" Handler="grid_MouseDoubleClick"/>
                 </Style>
-            </DataGrid.RowStyle>
+            </DataGrid.RowStyle>-->
         </DataGrid>
     </Grid>
     </DockPanel>

@@ -29,7 +29,7 @@ namespace Madspild.DataAccess
         {
             try
             {
-                SqlCommand cmd = new ("Select Id, PersonName, Email, AccessName, HomePhone, WorkPhone, Address, Zipcode, City From Users Join AccessRight On Users.AccessRight = AccessRight.Id Join Zipcodes On Users.Zipcode = Zipcodes.Code Where PersonName LIKE @Name AND Email LIKE @Email AND HomePhone LIKE @HPhone AND WorkPhone LIKE WPhone AND Address LIKE @Address AND Zipcode LIKE @Code", connection);
+                SqlCommand cmd = new ("Select Id, PersonName, Email, AccessName, HomePhone, WorkPhone, Address, Zipcode, City From Users Join Access On Users.Access = Access.Id Join Zipcodes On Users.Zipcode = Zipcodes.Code Where PersonName LIKE @Name AND Email LIKE @Email AND HomePhone LIKE @HPhone AND WorkPhone LIKE WPhone AND Address LIKE @Address AND Zipcode LIKE @Code", connection);
                 cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Email", email + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@HPhone", hPhone + "%", SqlDbType.NVarChar));
@@ -58,7 +58,7 @@ namespace Madspild.DataAccess
             List<string> user = [];
             try
             {
-                SqlCommand cmd = new("Select Users.Id, PersonName, Email, AccessName, HomePhone, WorkPhone, Address, Zipcode, City From Users Join AccessRight On Users.AccessRight = AccessRight.Id Join Zipcodes On Users.Zipcode = Zipcodes.Code Where Email = @Email AND Password = @Password", connection);
+                SqlCommand cmd = new("Select Users.Id, PersonName, Email, AccessName, HomePhone, WorkPhone, Address, Zipcode, City From Users Join Access On Users.Access = Access.Id Join Zipcodes On Users.Zipcode = Zipcodes.Code Where Email = @Email AND Password = @Password", connection);
                 SqlParameter param = new SqlParameter("@Email", SqlDbType.NVarChar);
                 SqlParameter param1 = new SqlParameter("@Password", SqlDbType.NVarChar);
                 param.Value = email;
@@ -92,11 +92,11 @@ namespace Madspild.DataAccess
             {
                 try
                 {
-                    string accessId = AccessRepository.GetId(user.AccessRight);
-                    SqlCommand command = new SqlCommand("INSERT INTO Users ( Email, Password, AccessRight, PersonName, HomePhone, WorkPhone, Address, Zipcode) VALUES ( @Email, @Password, @AccessRight, @PersonName, @HomePhone, @WorkPhone, @Address, @Zipcode)", connection);
+                    string accessId = AccessRepository.GetId(user.Access);
+                    SqlCommand command = new SqlCommand("INSERT INTO Users ( Email, Password, Access, PersonName, HomePhone, WorkPhone, Address, Zipcode) VALUES ( @Email, @Password, @Access, @PersonName, @HomePhone, @WorkPhone, @Address, @Zipcode)", connection);
                     command.Parameters.Add(CreateParam("@Email", user.Email, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Password", user.Password, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@AccessRight", accessId, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Access", accessId, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@PersonName", user.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@HomePhone", user.HomePhone, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@WorkPhone", user.WorkPhone, SqlDbType.NVarChar));
@@ -133,8 +133,8 @@ namespace Madspild.DataAccess
                 try
                 {
                     string id = GetId(user.Email);
-                    string accessId = AccessRepository.GetId(user.AccessRight);
-                    SqlCommand command = new SqlCommand("UPDATE Users SET Email = @Email, AccessRight = @Access, PersonName = @Name, HomePhone = @HPhone, WorkPhone = @WPhone, Address = @Address, Zipcode = @code WHERE Id = @Id", connection);
+                    string accessId = AccessRepository.GetId(user.Access);
+                    SqlCommand command = new SqlCommand("UPDATE Users SET Email = @Email, Access = @Access, PersonName = @Name, HomePhone = @HPhone, WorkPhone = @WPhone, Address = @Address, Zipcode = @code WHERE Id = @Id", connection);
                     command.Parameters.Add(CreateParam("@Email", user.Email, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Access", accessId, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Name", user.Name, SqlDbType.NVarChar));
