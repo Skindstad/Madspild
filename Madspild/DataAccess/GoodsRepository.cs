@@ -49,6 +49,11 @@ namespace Madspild.DataAccess
             }
         }
 
+        public void Add(string name, string price, string amount, string limit, string category, string path)
+        {
+            Add(new Goods("", name, price, amount, limit, category, path));
+        }
+
         public void Add(Goods product)
         {
             string error = "";
@@ -60,7 +65,7 @@ namespace Madspild.DataAccess
                     command.Parameters.Add(CreateParam("@Name", product.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Limit", product.AmountLimít, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Limit", product.AmountLimit, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Path", product.Path, SqlDbType.NVarChar));
                     connection.Open();
@@ -85,6 +90,10 @@ namespace Madspild.DataAccess
             else error = "Illegal value for Product";
             throw new DbException("Error in Goods repositiory: " + error);
         }
+        public void Update(string name, string price, string amount, string limit, string category, string path)
+        {
+            Update(new Goods("", name, price, amount, limit, category, path));
+        }
         public void Update(Goods product)
         {
             string error = "";
@@ -97,7 +106,7 @@ namespace Madspild.DataAccess
                     command.Parameters.Add(CreateParam("@Name", product.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Limit", product.AmountLimít, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Limit", product.AmountLimit, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Path", product.Path, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));

@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Madspild.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
+using System;
 namespace Madspild.View
 {
     /// <summary>
@@ -19,9 +8,15 @@ namespace Madspild.View
     /// </summary>
     public partial class Admin : Window
     {
+        private AdminViewModel admin = new();
         public Admin()
         {
             InitializeComponent();
+            admin.WarningHandler += delegate (object sender, MessageEventArgs e) {
+                MessageBox.Show(e.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            };
+            admin.CloseHandler += delegate (object sender, EventArgs e) { Close(); };
+            DataContext = admin;
         }
     }
 }

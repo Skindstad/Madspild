@@ -108,12 +108,12 @@ namespace Madspild.ViewModel
 
         public string AmountLimit
         {
-            get { return admin?.AmountLimít; }
+            get { return admin?.AmountLimit; }
             set
             {
-                if (!admin.AmountLimít.Equals(value))
+                if (!admin.AmountLimit.Equals(value))
                 {
-                    admin.AmountLimít = value;
+                    admin.AmountLimit = value;
                     OnPropertyChanged("AmountLimit");
                 }
             }
@@ -183,7 +183,7 @@ namespace Madspild.ViewModel
         {
             try
             {
-                repository.Update(Id, Name, Price, Amount, AmountLimit, Category, Path);
+                repository.Update(Name, Price, Amount, AmountLimit, Category, Path);
             }
             catch (Exception ex)
             {
