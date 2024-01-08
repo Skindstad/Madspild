@@ -28,10 +28,11 @@ namespace Madspild.DataAccess
         {
             try
             {
-                SqlCommand cmd = new("Select Goods.Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Join Category On Goods.Category = Category.Id Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category", connection);
+                // Join Category On Goods.Category = Category.Id  Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category
+                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Where ProductName LIKE @Name, Price LIKE @Price", connection);
                 cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
-                cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar)); ;
+               // cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar)); ;
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
