@@ -93,7 +93,7 @@ namespace Madspild.ViewModel
         {
             if (user[3] == "Admin")
             {
-                Forside dlg = new Forside();
+                Admin dlg = new Admin();
                 dlg.ShowDialog();
             }
             else

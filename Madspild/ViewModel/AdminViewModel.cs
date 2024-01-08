@@ -24,8 +24,8 @@ namespace Madspild.ViewModel
 
         public AdminViewModel()
         {
-           repository.RepositoryChanged += ModelChanged;
-            Search();
+            repository.RepositoryChanged += ModelChanged;
+            //Search();
             UpdateCommand = new RelayCommand(p => Update(), p => CanUpdate());
             SelectCommand = new RelayCommand(p => Search());
             ClearCommand = new RelayCommand(p => Clear());
