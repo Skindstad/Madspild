@@ -28,7 +28,7 @@ namespace Madspild.DataAccess
         {
             try
             {
-                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Join Category On Goods.Category = Category.Id Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category", connection);
+                SqlCommand cmd = new("Select Goods.Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Join Category On Goods.Category = Category.Id Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category", connection);
                 cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar)); ;

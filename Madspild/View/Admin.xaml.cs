@@ -8,7 +8,7 @@ namespace Madspild.View
     /// </summary>
     public partial class Admin : Window
     {
-        private AdminViewModel admin = new();
+        private AdminViewModel admin = new AdminViewModel();
         public Admin()
         {
             InitializeComponent();
