@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Madspild.Model
 {
-    internal class Goods : IDataErrorInfo, IComparable<Goods>
+    public class Goods : IDataErrorInfo, IComparable<Goods>
     {
         public string Id { get; set; }    // repræsenterer Id
         public string Name { get; set; }    // repræsenterer Name
@@ -66,7 +66,7 @@ namespace Madspild.Model
             return Id.CompareTo(produkt.Id);
         }
 
-        private static readonly string[] validatedProperties = { "Name", "Price", "Amount", "AmountLimit", "Category", "Path" };
+        private static readonly string[] validatedProperties = {"Name", "Price", "Amount", "AmountLimit", "Category", "Path" };
 
         public bool IsValid
         {

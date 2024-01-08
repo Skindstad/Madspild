@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Madspild.Model
 {
-    internal class Basket : IDataErrorInfo, IComparable<Basket>
+    public class Basket : IDataErrorInfo, IComparable<Basket>
     {
         public string Id { get; set; }    // repræsenterer Id
         public string PersonEmail { get; set; }    // repræsenterer Name
