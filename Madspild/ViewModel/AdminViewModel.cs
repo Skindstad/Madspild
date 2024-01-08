@@ -19,7 +19,7 @@ namespace Madspild.ViewModel
         public RelayCommand CreateCommand { get; private set; }
 
         private Goods admin = new Goods();
-        private GoodsRepository repository = new();
+        private GoodsRepository repository = new GoodsRepository();
         private ObservableCollection<Goods> inventory;
 
         public AdminViewModel()
