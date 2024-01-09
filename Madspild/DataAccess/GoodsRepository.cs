@@ -24,9 +24,9 @@ namespace Madspild.DataAccess
             return GetEnumerator();
         }
 
-        public void Add(string name, string price, string amount, string limit, string category, string path)
+        public void Add(string name, string price, string amount, string limit, string path)
         {
-            Add(new Goods("", name, price, amount, limit, category, path));
+            Add(new Goods("", name, price, amount, limit, path));
         }
 
         public void Search(string name, string price)
@@ -34,14 +34,14 @@ namespace Madspild.DataAccess
             try
             {
                 // Join Category On Goods.Category = Category.Id  Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category
-                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Where ProductName LIKE @Name AND Price LIKE @Price", connection);
+                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, PicturePath From Goods Where ProductName LIKE @Name AND Price LIKE @Price", connection);
                 cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
                // cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
-                while (reader.Read()) list.Add(new Goods(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString()));
+                while (reader.Read()) list.Add(new Goods(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString()));
                 OnChanged(DbOperation.SELECT, DbModeltype.Goods);
 
             }
@@ -62,12 +62,12 @@ namespace Madspild.DataAccess
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand("INSERT INTO Goods (ProductName, Price, Amount, AmountLimit, Category, PicturePath) VALUES ( @Name, @Price, @Amount, @Limit, @Category, @Path)", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO Goods (ProductName, Price, Amount, AmountLimit, PicturePath) VALUES ( @Name, @Price, @Amount, @Limit, @Path)", connection);
                     command.Parameters.Add(CreateParam("@Name", product.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Limit", product.AmountLimit, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
+                    //command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Path", product.Path, SqlDbType.NVarChar));
                     connection.Open();
                     if (command.ExecuteNonQuery() == 1)
@@ -92,9 +92,9 @@ namespace Madspild.DataAccess
             throw new DbException("Error in Goods repositiory: " + error);
         }
 
-        public void Update(string name, string price, string amount, string limit, string category, string path)
+        public void Update(string name, string price, string amount, string limit, string path)
         {
-            Update(new Goods("", name, price, amount, limit, category, path));
+            Update(new Goods("", name, price, amount, limit, path));
         }
         public void Update(Goods product)
         {
@@ -104,12 +104,12 @@ namespace Madspild.DataAccess
                 try
                 {
                     string id = GetId(product.Name);
-                    SqlCommand command = new SqlCommand("UPDATE Users SET ProductName = @Name, Price = @Price, Amount = @Amount, AmountLimit = @Limit, Category = @Category, PicturePath = @Path WHERE Id = @Id", connection);
+                    SqlCommand command = new SqlCommand("UPDATE Users SET ProductName = @Name, Price = @Price, Amount = @Amount, AmountLimit = @Limit, PicturePath = @Path WHERE Id = @Id", connection);
                     command.Parameters.Add(CreateParam("@Name", product.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Limit", product.AmountLimit, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
+                    //command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Path", product.Path, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
                     connection.Open();
@@ -145,7 +145,7 @@ namespace Madspild.DataAccess
                 command.ExecuteNonQuery();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    list.Remove(new Goods(id, name, "", "", "", "", ""));
+                    list.Remove(new Goods(id, name, "", "", "", ""));
                     OnChanged(DbOperation.DELETE, DbModeltype.Users);
                     return;
                 }

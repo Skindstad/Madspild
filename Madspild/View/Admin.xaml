@@ -6,32 +6,39 @@
         xmlns:local="clr-namespace:Madspild.View"
         mc:Ignorable="d"
                   Title="MainWindow" Height="450" Width="460" FontFamily="Verdana" FontSize="12" ResizeMode="NoResize">
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="34"/>
-            <RowDefinition Height="34"/>
-            <RowDefinition Height="34"/>
-            <RowDefinition Height="64"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="Navn" VerticalAlignment="Center"/>
-        <TextBlock Text="Pris" Grid.Row="1" VerticalAlignment="Center"/>
-        <TextBlock Text="Kategori" Grid.Row="2" VerticalAlignment="Center"/>
-        <TextBox Name="txtNavn" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Name}"/>
-        <TextBox Name="txtPris" Grid.Column="1" Grid.Row="1" Width="80" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Price}"/>
-        <TextBox Name="txtKategori" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Category}"/>
-        <Button Name="cmdSearch" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Search" Margin="5,20,5,20" Command="{Binding Path=SearchCommand}" />
-        <Button Name="cmdRemove" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Remove" Margin="5,20,85,20" Command="{Binding Path=RemoveCommand}" />
-        <Button Name="cmdClear" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Clear" Margin="5,20,325,20" Command="{Binding Path=ClearCommand}" />
-        <DataGrid Name="grid" Grid.Row="4" Grid.ColumnSpan="3" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" SelectedItem="{Binding SelectedModel, Mode=TwoWay}" ItemsSource="{Binding Inventory}" >
-            <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                </Style>
-            </DataGrid.RowStyle>
-        </DataGrid>
-    </Grid>
+    <DockPanel Margin="20">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Functions">
+                <MenuItem Header="Create New Data" Command="{Binding Path=CreateCommand}" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="34"/>
+                <RowDefinition Height="64"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Navn" VerticalAlignment="Center"/>
+            <TextBlock Text="Pris" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBlock Text="Kategori" Grid.Row="2" VerticalAlignment="Center"/>
+            <TextBox Name="txtNavn" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Name}"/>
+            <TextBox Name="txtPris" Grid.Column="1" Grid.Row="1" Width="80" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Price}"/>
+            <TextBox Name="txtKategori" Grid.Column="1" Grid.Row="2" Width="100" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=Category}"/>
+            <Button Name="cmdSearch" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Search" Margin="5,20,5,20" Command="{Binding Path=SearchCommand}" />
+            <Button Name="cmdRemove" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Remove" Margin="5,20,85,20" Command="{Binding Path=RemoveCommand}" />
+            <Button Name="cmdClear" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Content="Clear" Margin="5,20,325,20" Command="{Binding Path=ClearCommand}" />
+            <DataGrid Name="grid" Grid.Row="4" Grid.ColumnSpan="3" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" SelectedItem="{Binding SelectedModel, Mode=TwoWay}" ItemsSource="{Binding Inventory}" >
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
 </Window>

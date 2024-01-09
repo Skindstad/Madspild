@@ -13,13 +13,13 @@ namespace Madspild.ViewModel
     {
         public RelayCommand SearchCommand { get; private set; }
         public RelayCommand RemoveCommand { get; private set; }
-        public RelayCommand InsertCommand { get; private set; }
+        public RelayCommand AddCommand { get; private set; }
         public RelayCommand ClearCommand { get; private set; }
         public RelayCommand UpdateCommand { get; private set; }
         public RelayCommand CreateCommand { get; private set; }
 
         private Goods admin = new Goods();
-        private GoodsRepository repository = new();
+        private GoodsRepository repository = new GoodsRepository();
         private ObservableCollection<Goods> inventory;
 
         public AdminViewModel()
@@ -29,7 +29,7 @@ namespace Madspild.ViewModel
             UpdateCommand = new RelayCommand(p => Update(), p => CanUpdate());
             SearchCommand = new RelayCommand(p => Search());
             ClearCommand = new RelayCommand(p => Clear());
-            InsertCommand = new RelayCommand(p => Add(), p => CanAdd());
+            AddCommand = new RelayCommand(p => Add(), p => CanAdd());
             RemoveCommand = new RelayCommand(p => Remove(), p => CanRemove());
             CreateCommand = new RelayCommand(p => (new CreateWindow()).ShowDialog());
         }
@@ -121,7 +121,7 @@ namespace Madspild.ViewModel
             }
         }
 
-        public string Category
+       /* public string Category
         {
             get { return admin?.Category; }
             set
@@ -132,7 +132,7 @@ namespace Madspild.ViewModel
                     OnPropertyChanged("Category");
                 }
             }
-        }
+        }*/
 
         public string Path
         {
@@ -185,7 +185,7 @@ namespace Madspild.ViewModel
         {
             try
             {
-                repository.Update(Name, Price, Amount, AmountLimit, Category, Path);
+                repository.Update(Name, Price, Amount, AmountLimit, Path);
             }
             catch (Exception ex)
             {
@@ -202,7 +202,8 @@ namespace Madspild.ViewModel
         {
             try
             {
-                repository.Add(Name, Price, Amount, AmountLimit, Category, Path);
+                repository.Add(Name, Price, Amount, AmountLimit, Path);
+                Clear();
             }
             catch (Exception ex)
             {
