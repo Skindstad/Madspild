@@ -16,7 +16,7 @@
         <TextBlock Text="Pris" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,80,0,0" />
         <TextBlock Text="Antal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,128,0,0" />
         <TextBlock Text="Antal grænse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,168,0,0" />
-        <TextBlock Text="Kategori" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,228,0,0" />
+        <!--<TextBlock Text="Kategori" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,228,0,0" />-->
         <TextBlock Text="Path" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,268,0,0" />
 
         <TextBox Name="txtNavn" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,28,0,0" Width="80" Height="22" Text="{Binding Path=Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{x:Null}" />

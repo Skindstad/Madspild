@@ -104,7 +104,7 @@ namespace Madspild.DataAccess
                 try
                 {
                     string id = GetId(product.Name);
-                    SqlCommand command = new SqlCommand("UPDATE Users SET ProductName = @Name, Price = @Price, Amount = @Amount, AmountLimit = @Limit, PicturePath = @Path WHERE Id = @Id", connection);
+                    SqlCommand command = new SqlCommand("UPDATE Goods SET ProductName = @Name, Price = @Price, Amount = @Amount, AmountLimit = @Limit, PicturePath = @Path WHERE Id = @Id", connection);
                     command.Parameters.Add(CreateParam("@Name", product.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
