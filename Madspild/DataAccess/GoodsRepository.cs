@@ -24,22 +24,20 @@ namespace Madspild.DataAccess
             return GetEnumerator();
         }
 
+        public void Add(string name, string price, string amount, string limit, string category, string path)
+        {
+            Add(new Goods("", name, price, amount, limit, category, path));
+        }
+
         public void Search(string name, string price)
         {
             try
             {
-<<<<<<< Updated upstream
-                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Join Category On Goods.Category = Category.Id Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category", connection);
-                cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
-                cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
-                cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar)); ;
-=======
                 // Join Category On Goods.Category = Category.Id  Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category
                 SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Where ProductName LIKE @Name AND Price LIKE @Price", connection);
                 cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
                // cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar));
->>>>>>> Stashed changes
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
@@ -68,7 +66,7 @@ namespace Madspild.DataAccess
                     command.Parameters.Add(CreateParam("@Name", product.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Limit", product.AmountLimít, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Limit", product.AmountLimit, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Path", product.Path, SqlDbType.NVarChar));
                     connection.Open();
@@ -93,6 +91,11 @@ namespace Madspild.DataAccess
             else error = "Illegal value for Product";
             throw new DbException("Error in Goods repositiory: " + error);
         }
+
+        public void Update(string name, string price, string amount, string limit, string category, string path)
+        {
+            Update(new Goods("", name, price, amount, limit, category, path));
+        }
         public void Update(Goods product)
         {
             string error = "";
@@ -105,7 +108,7 @@ namespace Madspild.DataAccess
                     command.Parameters.Add(CreateParam("@Name", product.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Limit", product.AmountLimít, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Limit", product.AmountLimit, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Path", product.Path, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
