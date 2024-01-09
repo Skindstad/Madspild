@@ -16,7 +16,7 @@ namespace Madspild.Model
         public string Price { get; set; }
         public string Amount { get; set; }
         public string AmountLimit { get; set; }
-        public string Category { get; set; }
+       // public string Category { get; set; }
         public string Path { get; set; }
 
 
@@ -27,19 +27,19 @@ namespace Madspild.Model
             Price = "";
             Amount = "";
             AmountLimit = "";
-            Category = "";
+          //  Category = "";
             Path = "";
 
         }
 
-        public Goods(string id, string name, string price, string amount, string amountLimit, string category, string path)
+        public Goods(string id, string name, string price, string amount, string amountLimit, string path)
         {
             Id = id;
             Name = name;
             Price = price;
             Amount = amount;
             AmountLimit = amountLimit;
-            Category = category;
+           // Category = category;
             Path = path;
         }
 
@@ -66,7 +66,7 @@ namespace Madspild.Model
             return Id.CompareTo(produkt.Id);
         }
 
-        private static readonly string[] validatedProperties = {"Name", "Price", "Amount", "AmountLimit", "Category", "Path" };
+        private static readonly string[] validatedProperties = {"Name", "Price", "Amount", "AmountLimit", "Path" };
 
         public bool IsValid
         {

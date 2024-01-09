@@ -25,7 +25,7 @@
         <TextBox Name="txtAntal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,128,0,0" Width="280" Height="22" Text="{Binding Path=Amount}" />
         <TextBox Name="txtAntalGrænse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,168,0,0" Width="50" Height="22" Text="{Binding Path=AmountLimit, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{x:Null}" />
         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,193,0,0" Height="20" Content="{Binding ElementName=txtAntalGrænse, Path=(Validation.Errors).CurrentItem}" />
-        <TextBox Name="txtKategori" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,228,0,0" Width="280" Height="22" Text="{Binding Path=Category}" />
+        <!--<TextBox Name="txtKategori" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,228,0,0" Width="280" Height="22" Text="{Binding Path=Category}" />-->
         <TextBox Name="txtPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,268,0,0" Width="280" Height="22" Text="{Binding Path=Path}" />
 
         <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="247,300,0,0" Width="70" Height="25" Command="{Binding Path=AddCommand}" />
