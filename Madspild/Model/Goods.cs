@@ -9,13 +9,13 @@ using System.Xml.Linq;
 
 namespace Madspild.Model
 {
-    internal class Goods : IDataErrorInfo, IComparable<Goods>
+    public class Goods : IDataErrorInfo, IComparable<Goods>
     {
         public string Id { get; set; }    // repræsenterer Id
         public string Name { get; set; }    // repræsenterer Name
         public string Price { get; set; }
         public string Amount { get; set; }
-        public string AmountLimít { get; set; }
+        public string AmountLimit { get; set; }
         public string Category { get; set; }
         public string Path { get; set; }
 
@@ -26,7 +26,7 @@ namespace Madspild.Model
             Name = "";
             Price = "";
             Amount = "";
-            AmountLimít = "";
+            AmountLimit = "";
             Category = "";
             Path = "";
 
@@ -38,7 +38,7 @@ namespace Madspild.Model
             Name = name;
             Price = price;
             Amount = amount;
-            AmountLimít = amountLimit;
+            AmountLimit = amountLimit;
             Category = category;
             Path = path;
         }
@@ -66,7 +66,7 @@ namespace Madspild.Model
             return Id.CompareTo(produkt.Id);
         }
 
-        private static readonly string[] validatedProperties = { "Name", "Price", "Amount", "AmountLimit", "Category", "Path" };
+        private static readonly string[] validatedProperties = {"Name", "Price", "Amount", "AmountLimit", "Category", "Path" };
 
         public bool IsValid
         {
@@ -128,7 +128,7 @@ namespace Madspild.Model
 
         private string ValidateLimit()
         {
-            foreach (char c in AmountLimít) if (c < '0' || c > '9') return "Amount limit must be a number";
+            foreach (char c in AmountLimit) if (c < '0' || c > '9') return "Amount limit must be a number";
             return null;
         }
 

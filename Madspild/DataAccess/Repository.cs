@@ -13,7 +13,7 @@ namespace Madspild.DataAccess
 {
     // Definerer typen af hhv. den databaseoperation, der er udført og af hvilket repository.
     public enum DbOperation { SELECT, INSERT, UPDATE, DELETE };
-    public enum DbModeltype { Users, Zipcodes, AccessRights, Goods, Basket}
+    public enum DbModeltype { Users, Zipcodes, Access, Goods, Basket}
 
     // EventArgs for en databaseoperation.
     public class DbEventArgs(DbOperation operation, DbModeltype modeltype) : EventArgs

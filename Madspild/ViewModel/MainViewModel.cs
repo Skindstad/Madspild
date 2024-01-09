@@ -20,7 +20,7 @@ namespace Madspild.ViewModel
 
         private string email = "";
         private string password = "";
-        private string accessRight = "";
+        private string access = "";
 
         public MainViewModel() 
         {
@@ -52,14 +52,14 @@ namespace Madspild.ViewModel
                 }
             }
         }
-        public string AccessRight
+        public string Access
         {
-            get { return accessRight; }
+            get { return access; }
             set
             {
-                if (!accessRight.Equals(value))
+                if (!access.Equals(value))
                 {
-                    accessRight = value;
+                    access = value;
                     OnPropertyChanged("Access");
                 }
             }
@@ -69,7 +69,7 @@ namespace Madspild.ViewModel
         {
             email = "";
             password = "";
-            accessRight = "";
+            access = "";
         }
 
         private void Login()
@@ -86,14 +86,14 @@ namespace Madspild.ViewModel
             {
                 OnWarning(ex.Message);
             }
-            Access(user);
+            AccessRight(user);
         }
 
-        private void Access(List<string> user)
+        private void AccessRight(List<string> user)
         {
             if (user[3] == "Admin")
             {
-                Forside dlg = new Forside();
+                Admin dlg = new Admin();
                 dlg.ShowDialog();
             }
             else if(user[3] == "User")
