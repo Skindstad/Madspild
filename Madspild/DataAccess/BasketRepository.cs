@@ -49,6 +49,11 @@ namespace Madspild.DataAccess
             }
         }
 
+        public void Add(string email, string productName, string amount)
+        {
+            Add(new Basket("", email, productName, amount, "", "", ""));
+        }
+
         public void Add(Basket basket)
         {
             string error = "";
@@ -58,22 +63,33 @@ namespace Madspild.DataAccess
                 {
                     string personId = UserRepository.GetId(basket.PersonEmail);
                     string productId = GoodsRepository.GetId(basket.ProductName);
-                    string date = DateTime.Now.ToString("yyyyMMddHHmmss").ToString();
-                    SqlCommand command = new SqlCommand("INSERT INTO Basket (PersonId, ProductId, Amount, BasketDato) VALUES (@PersonId, @ProductId, @Amount, @BasketDato)", connection);
-                    command.Parameters.Add(CreateParam("@PersonId", personId, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@ProductId", productId, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Amount", basket.Amount, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@BasketDato", date, SqlDbType.NVarChar));
-                    connection.Open();
-                    if (command.ExecuteNonQuery() == 1)
+                    string limit = GoodsRepository.GetLimit(productId);
+                    if (int.Parse(basket.Amount) > int.Parse(limit))
                     {
-                        basket.BacketDato = date;
-                        list.Add(basket);
-                        list.Sort();
-                        OnChanged(DbOperation.INSERT, DbModeltype.Basket);
-                        return;
+                        error = string.Format("Amount is Higher end the limit");
                     }
-                    error = string.Format("Id could not be inserted in the database");
+                    else
+                    {
+                        string price = GoodsRepository.GetPrice(productId);
+                        float sumPrice = float.Parse(price) * int.Parse(basket.Amount); 
+                        string date = DateTime.Now.ToString("yyyyMMddHHmmss").ToString();
+                        SqlCommand command = new SqlCommand("INSERT INTO Basket (PersonId, ProductId, Price, Amount, BasketDato) VALUES (@PersonId, @ProductId, @Price, @Amount, @BasketDato)", connection);
+                        command.Parameters.Add(CreateParam("@PersonId", personId, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@ProductId", productId, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Price", sumPrice, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Amount", basket.Amount, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@BasketDato", date, SqlDbType.NVarChar));
+                        connection.Open();
+                        if (command.ExecuteNonQuery() == 1)
+                        {
+                            basket.BacketDato = date;
+                            list.Add(basket);
+                            list.Sort();
+                            OnChanged(DbOperation.INSERT, DbModeltype.Basket);
+                            return;
+                        }
+                        error = string.Format("Id could not be inserted in the database");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -87,6 +103,12 @@ namespace Madspild.DataAccess
             else error = "Illegal value for Id";
             throw new DbException("Error in Basket repositiory: " + error);
         }
+
+        public void Update(string email, string productName, string amount, string basketDate)
+        {
+            Add(new Basket("", email, productName, amount, "", basketDate, ""));
+        }
+
         public void Update(Basket basket)
         {
             string error = "";
@@ -94,22 +116,32 @@ namespace Madspild.DataAccess
             {
                 try
                 {
-
                     string personId = UserRepository.GetId(basket.PersonEmail);
                     string productId = GoodsRepository.GetId(basket.ProductName);
-                    string id = GetId(basket.BacketDato, personId, productId);
-                    string date = DateTime.Now.ToString("yyyyMMddHHmmss").ToString();
-                    SqlCommand command = new SqlCommand("UPDATE Basket SET Amount = @Amount, BacketDato = @dato WHERE Id = @Id", connection);
-                    command.Parameters.Add(CreateParam("@Amount", basket.Amount, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Dato", date, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
-                    connection.Open();
-                    if (command.ExecuteNonQuery() == 1)
+                    string limit = GoodsRepository.GetLimit(productId);
+                    if (int.Parse(basket.Amount) > int.Parse(limit))
                     {
-                        OnChanged(DbOperation.UPDATE, DbModeltype.Basket);
-                        return;
+                        error = string.Format("Amount is Higher end the limit");
                     }
-                    error = string.Format("Basket {0} could not be update", basket.BacketDato);
+                    else
+                    {
+                        string price = GoodsRepository.GetPrice(productId);
+                        float sumPrice = float.Parse(price) * int.Parse(basket.Amount);
+                        string id = GetId(basket.BacketDato, personId, productId);
+                        string date = DateTime.Now.ToString("yyyyMMddHHmmss").ToString();
+                        SqlCommand command = new SqlCommand("UPDATE Basket SET Amount = @Amount, Price = @Price, BacketDato = @dato WHERE Id = @Id", connection);
+                        command.Parameters.Add(CreateParam("@Amount", basket.Amount, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Price", sumPrice, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Dato", date, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
+                        connection.Open();
+                        if (command.ExecuteNonQuery() == 1)
+                        {
+                            OnChanged(DbOperation.UPDATE, DbModeltype.Basket);
+                            return;
+                        }
+                        error = string.Format("Basket {0} could not be update", basket.BacketDato);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -123,6 +155,41 @@ namespace Madspild.DataAccess
             else error = "Illegal value for Basket";
             throw new DbException("Error in Basket repositiory: " + error);
         }
+
+
+        public void Buy(string email)
+        {
+            string error = "";
+            if (email.Length > 0)
+            {
+                try
+                {
+                        string personId = UserRepository.GetId(email);
+                        string date = DateTime.Now.ToString("yyyyMMddHHmmss").ToString();
+                        SqlCommand command = new SqlCommand("UPDATE Basket SET Bought = 'True', BoughtDato = @Dato WHERE PersonId = @Id AND Bought = 'False'", connection);;
+                        command.Parameters.Add(CreateParam("@Dato", date, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Id", personId, SqlDbType.NVarChar));
+                        connection.Open();
+                        if (command.ExecuteNonQuery() == 1)
+                        {
+                            OnChanged(DbOperation.UPDATE, DbModeltype.Basket);
+                            return;
+                        }
+                        error = string.Format("Basket {0} could not be update", email);
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+                }
+            }
+            else error = "Illegal value for email";
+            throw new DbException("Error in Basket repositiory: " + error);
+        }
+
 
         public void Remove(Basket basket)
         {

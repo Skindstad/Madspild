@@ -178,7 +178,7 @@ namespace Madspild.ViewModel
 
         public void Search()
         {
-            repository.Search(Name, Price, Category);
+            repository.Search(Name, Price);
         }
 
         public void Update()

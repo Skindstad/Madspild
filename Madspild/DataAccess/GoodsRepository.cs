@@ -24,15 +24,20 @@ namespace Madspild.DataAccess
             return GetEnumerator();
         }
 
-        public void Search(string name, string price, string category)
+        public void Add(string name, string price, string amount, string limit, string category, string path)
+        {
+            Add(new Goods("", name, price, amount, limit, category, path));
+        }
+
+        public void Search(string name, string price)
         {
             try
             {
                 // Join Category On Goods.Category = Category.Id  Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category
-                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Where ProductName LIKE @Name, Price LIKE @Price", connection);
+                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Where ProductName LIKE @Name AND Price LIKE @Price", connection);
                 cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
-               // cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar)); ;
+               // cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
@@ -48,11 +53,6 @@ namespace Madspild.DataAccess
             {
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
-        }
-
-        public void Add(string name, string price, string amount, string limit, string category, string path)
-        {
-            Add(new Goods("", name, price, amount, limit, category, path));
         }
 
         public void Add(Goods product)
@@ -91,6 +91,7 @@ namespace Madspild.DataAccess
             else error = "Illegal value for Product";
             throw new DbException("Error in Goods repositiory: " + error);
         }
+
         public void Update(string name, string price, string amount, string limit, string category, string path)
         {
             Update(new Goods("", name, price, amount, limit, category, path));
@@ -166,9 +167,56 @@ namespace Madspild.DataAccess
             try
             {
                 connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
-                SqlCommand command = new SqlCommand("SELECT Id FROM Users WHERE ProductName = @Name", connection);
+                SqlCommand command = new SqlCommand("SELECT Id FROM Goods WHERE ProductName = @Name", connection);
                 SqlParameter param = new SqlParameter("@Name", SqlDbType.NVarChar);
                 param.Value = name;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
+        }
+        public static string GetLimit(string id)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand command = new SqlCommand("SELECT AmountLimit FROM Goods WHERE Id = @Id", connection);
+                SqlParameter param = new SqlParameter("@Id", SqlDbType.NVarChar);
+                param.Value = id;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
+        }
+
+        public static string GetPrice(string id)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand command = new SqlCommand("SELECT Price FROM Goods WHERE Id = @Id", connection);
+                SqlParameter param = new SqlParameter("@Id", SqlDbType.NVarChar);
+                param.Value = id;
                 command.Parameters.Add(param);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
