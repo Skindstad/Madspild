@@ -29,7 +29,7 @@ namespace Madspild.DataAccess
         {
             try
             {
-                SqlCommand cmd = new ("Select Id, PersonName, Email, AccessName, HomePhone, WorkPhone, Address, Zipcode, City From Users Join Access On Users.Access = Access.Id Join Zipcodes On Users.Zipcode = Zipcodes.Code Where PersonName LIKE @Name AND Email LIKE @Email AND HomePhone LIKE @HPhone AND WorkPhone LIKE WPhone AND Address LIKE @Address AND Zipcode LIKE @Code", connection);
+                SqlCommand cmd = new ("Select Users.Id, PersonName, Email, Password, AccessName, HomePhone, WorkPhone, Address, Zipcode, City From Users Join Access On Users.Access = Access.Id Join Zipcodes On Users.Zipcode = Zipcodes.Code Where PersonName LIKE @Name AND Email LIKE @Email AND HomePhone LIKE @HPhone AND WorkPhone LIKE @WPhone AND Address LIKE @Address AND Zipcode LIKE @Code", connection);
                 cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Email", email + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@HPhone", hPhone + "%", SqlDbType.NVarChar));
@@ -39,7 +39,7 @@ namespace Madspild.DataAccess
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
-                while (reader.Read()) list.Add(new User(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), "", reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(), reader[7].ToString(), reader[8].ToString()));
+                while (reader.Read()) list.Add(new User(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(), reader[7].ToString(), reader[8].ToString(), reader[9].ToString()));
                 OnChanged(DbOperation.SELECT, DbModeltype.Users);
 
             }
@@ -125,6 +125,11 @@ namespace Madspild.DataAccess
             else error = "Illegal value for Id";
             throw new DbException("Error in User repositiory: " + error);
         }
+        public void Update(string email, string name, string password, string hPhone, string wPhone, string address, string code)
+        {
+            Update(new User("", name, email, password, "", hPhone, wPhone, address, code, ""));
+        }
+
         public void Update(User user)
         {
             string error = "";
@@ -133,15 +138,16 @@ namespace Madspild.DataAccess
                 try
                 {
                     string id = GetId(user.Email);
-                    string accessId = AccessRepository.GetId(user.Access);
-                    SqlCommand command = new SqlCommand("UPDATE Users SET Email = @Email, Access = @Access, PersonName = @Name, HomePhone = @HPhone, WorkPhone = @WPhone, Address = @Address, Zipcode = @code WHERE Id = @Id", connection);
+                    //string accessId = AccessRepository.GetId(user.Access);
+                    SqlCommand command = new SqlCommand("UPDATE Users SET Email = @Email, PersonName = @Name, Password = @Password, HomePhone = @HPhone, WorkPhone = @WPhone, Address = @Address, Zipcode = @Code WHERE Id = @Id", connection);
                     command.Parameters.Add(CreateParam("@Email", user.Email, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Access", accessId, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Password", user.Password, SqlDbType.NVarChar));
+                    //command.Parameters.Add(CreateParam("@Access", accessId, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Name", user.Name, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@HPhone", user.HomePhone, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@WPhone", user.WorkPhone, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Address", user.Address, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Zipcode", user.Zipcode, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Code", user.Zipcode, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
                     connection.Open();
                     if (command.ExecuteNonQuery() == 1)
@@ -149,6 +155,7 @@ namespace Madspild.DataAccess
                         for (int i = 0; i < list.Count; ++i)
                             if (list[i].Id.Equals(id))
                             {
+                                list[i].Id = id;
                                 list[i].City = ZipcodeRepository.GetCity(user.Zipcode);
                                 break;
                             }
@@ -182,7 +189,7 @@ namespace Madspild.DataAccess
                 command.ExecuteNonQuery();
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    list.Remove(new User(id, "", email, "", "", "", "", "", "", ""));
+                    list.Remove(new User(id, "", "", "", "", "", "", "", "", ""));
                     OnChanged(DbOperation.DELETE, DbModeltype.Users);
                     return;
                 }

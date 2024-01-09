@@ -110,7 +110,6 @@ namespace Madspild.Model
                 case "WorkPhone": return ValidateWorkPhone();
                 case "Address": return ValidateAddress();
                 case "Zipcode": return ValidateZipcode();
-                case "City": return ValidateCity();
             }
             return null;
         }
@@ -147,7 +146,7 @@ namespace Madspild.Model
         {
             if (Access == null)
             {
-                return "Access Right can not be null";
+                return "Access can not be null";
             }
             return null;
         }
@@ -155,17 +154,17 @@ namespace Madspild.Model
 
         private string ValidateHomePhone()
         {
-            if (HomePhone.Length != 8)
-                return "Phone must be a number of 8 digits in length";
-            foreach (char c in HomePhone) if (c < '0' || c > '9') return "Phone must be a number of 8 digits in length";
+            if (HomePhone.Length != 10)
+                return "Phone must be a number of 10 digits in length";
+            foreach (char c in HomePhone) if (c < '0' || c > '9') return "Phone must be a number of 10 digits in length";
             return null;
         }
 
         private string ValidateWorkPhone()
         {
             if (WorkPhone.Length != 10)
-                return "Phone must be a number of 8 digits in length";
-            foreach (char c in WorkPhone) if (c < '0' || c > '9') return "Phone must be a number of 8 digits in length";
+                return "Phone must be a number of 10 digits in length";
+            foreach (char c in WorkPhone) if (c < '0' || c > '9') return "Phone must be a number of 10 digits in length";
             return null;
         }
 
@@ -182,11 +181,6 @@ namespace Madspild.Model
         {
             if (Zipcode.Length != 4) return "Zipcode must be a number of 4 digits";
             foreach (char c in Zipcode) if (c < '0' || c > '9') return "Zipcode must be a number of 4 digits";
-            return null;
-        }
-                private string ValidateCity()
-        {
-            if (City == null || City.Length == 0) return "City can not be empty";
             return null;
         }
 

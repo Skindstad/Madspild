@@ -1229,7 +1229,7 @@ insert into Access(Id, AccessName) values (2, 'User');
 /* Users */
 Insert into Users(Email, Password, Access, PersonName, HomePhone, WorkPhone, Address, Zipcode) Values('admin@dania.dk', 'secret', 1, 'Admin', '0000000000', '0000000000', 'Bredgadevej 10', '8800');
 Insert into Users(Email, Password, Access, PersonName, HomePhone, WorkPhone, Address, Zipcode) Values('user@dania.dk', 'secret', 2, 'User', '0000000000', '0000000000', 'Bredgadevej 10', '8800');
-
+Insert into Users(Email, Password, Access, PersonName, HomePhone, WorkPhone, Address, Zipcode) Values('user2@dania.dk', 'secret', 2, 'User2', '0000000000', '0000000000', 'Bredgadevej 10', '8800');
 /* Goods */
 Insert into Goods(ProductName, Price, Amount, AmountLimit) values ('Banana', 5.0, 10, 2);
 Insert into Goods(ProductName, Price, Amount, AmountLimit) values ('Pølser', 30.0, 15, 3);
