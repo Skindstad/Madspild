@@ -139,7 +139,7 @@ namespace Madspild.DataAccess
             try
             {
                 string id = GetId(name);
-                SqlCommand command = new SqlCommand("DELETE FROM Users WHERE Id = @Id", connection);
+                SqlCommand command = new SqlCommand("DELETE FROM Goods WHERE Id = @Id", connection);
                 command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
                 connection.Open();
                 command.ExecuteNonQuery();

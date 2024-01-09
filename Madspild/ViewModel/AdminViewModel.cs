@@ -220,7 +220,7 @@ namespace Madspild.ViewModel
         {
             try
             {
-                repository.Remove(Id);
+                repository.Remove(Name);
             }
             catch (Exception ex)
             {
