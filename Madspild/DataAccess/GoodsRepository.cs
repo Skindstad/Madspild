@@ -24,14 +24,22 @@ namespace Madspild.DataAccess
             return GetEnumerator();
         }
 
-        public void Search(string name, string price, string category)
+        public void Search(string name, string price)
         {
             try
             {
+<<<<<<< Updated upstream
                 SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Join Category On Goods.Category = Category.Id Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category", connection);
                 cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar)); ;
+=======
+                // Join Category On Goods.Category = Category.Id  Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category
+                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, Category, PicturePath From Goods Where ProductName LIKE @Name AND Price LIKE @Price", connection);
+                cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
+                cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
+               // cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar));
+>>>>>>> Stashed changes
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
@@ -156,9 +164,56 @@ namespace Madspild.DataAccess
             try
             {
                 connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
-                SqlCommand command = new SqlCommand("SELECT Id FROM Users WHERE ProductName = @Name", connection);
+                SqlCommand command = new SqlCommand("SELECT Id FROM Goods WHERE ProductName = @Name", connection);
                 SqlParameter param = new SqlParameter("@Name", SqlDbType.NVarChar);
                 param.Value = name;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
+        }
+        public static string GetLimit(string id)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand command = new SqlCommand("SELECT AmountLimit FROM Goods WHERE Id = @Id", connection);
+                SqlParameter param = new SqlParameter("@Id", SqlDbType.NVarChar);
+                param.Value = id;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
+        }
+
+        public static string GetPrice(string id)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand command = new SqlCommand("SELECT Price FROM Goods WHERE Id = @Id", connection);
+                SqlParameter param = new SqlParameter("@Id", SqlDbType.NVarChar);
+                param.Value = id;
                 command.Parameters.Add(param);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
