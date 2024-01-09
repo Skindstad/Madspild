@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Madspild.View"
         mc:Ignorable="d"
-            Title="CreateWindow" Height="400" Width="440">
+            Title="UpdateWindow" Height="400" Width="440">
     <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type ValidationError}">
@@ -17,17 +17,17 @@
         <TextBlock Text="Pris" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,100,0,0" />
         <TextBlock Text="Antal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,148,0,0" />
         <TextBlock Text="Antal grænse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,188,0,0" />
-        <TextBlock Text="Kategori" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,248,0,0" />
+        <!--<TextBlock Text="Kategori" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,248,0,0" />-->
         <TextBlock Text="Path" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,288,0,0" />
 
-        <TextBox Name="txtID" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,18,0,0" Width="50" Height="22" Text="{Binding Path=Amount}" />
+        <TextBox Name="txtID" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,18,0,0" Width="50" Height="22" Text="{Binding Path=Id}" />
         <TextBox Name="txtNavn" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,48,0,0" Width="80" Height="22" Text="{Binding Path=Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{x:Null}" />
         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,75,0,0" Height="20" Content="{Binding ElementName=txtNavn, Path=(Validation.Errors).CurrentItem}" />
         <TextBox Name="txtPris" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,100,0,0" Width="150" Height="22" Text="{Binding Path=Price}" />
         <TextBox Name="txtAntal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,148,0,0" Width="280" Height="22" Text="{Binding Path=Amount}" />
         <TextBox Name="txtAntalGrænse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,188,0,0" Width="50" Height="22" Text="{Binding Path=AmountLimit, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{x:Null}" />
         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,213,0,0" Height="20" Content="{Binding ElementName=txtAntalGrænse, Path=(Validation.Errors).CurrentItem}" />
-        <TextBox Name="txtKategori" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,248,0,0" Width="280" Height="22" Text="{Binding Path=Category}" />
+        <!--<TextBox Name="txtKategori" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,248,0,0" Width="280" Height="22" Text="{Binding Path=Category}" />-->
         <TextBox Name="txtPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,288,0,0" Width="280" Height="22" Text="{Binding Path=Path}" />
 
         <Button Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="247,320,0,0" Width="70" Height="25" Command="{Binding Path=UpdateCommand}" />

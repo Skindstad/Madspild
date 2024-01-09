@@ -1,4 +1,5 @@
-﻿using Madspild.ViewModel;
+﻿using Madspild.Model;
+using Madspild.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,15 @@ namespace Madspild.View
     /// </summary>
     public partial class UpdateWindow : Window
     {
-        private AdminViewModel admin;
-        public UpdateWindow()
+        private AdminViewModel admin = new AdminViewModel();
+        public UpdateWindow(Goods goods)
         {
             InitializeComponent();
+
+            admin = new AdminViewModel();
+            // Set the DataContext to the specific Goods instance
+            admin.SelectedModel = goods;
+
             admin.WarningHandler += delegate (object sender, MessageEventArgs e) {
                 MessageBox.Show(e.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             };

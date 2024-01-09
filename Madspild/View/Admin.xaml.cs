@@ -1,6 +1,9 @@
 ﻿using Madspild.ViewModel;
 using System.Windows;
 using System;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Madspild.Model;
 namespace Madspild.View
 {
     /// <summary>
@@ -17,6 +20,22 @@ namespace Madspild.View
             };
             admin.CloseHandler += delegate (object sender, EventArgs e) { Close(); };
             DataContext = admin;
+        }
+
+        private void grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender != null)
+            {
+                try
+                {
+                    DataGridRow row = sender as DataGridRow;
+                    Goods goods = (Goods)row.Item;
+                    admin.UpdateGoods(goods);
+                }
+                catch
+                {
+                }
+            }
         }
     }
 }

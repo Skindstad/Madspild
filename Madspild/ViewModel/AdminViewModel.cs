@@ -233,6 +233,12 @@ namespace Madspild.ViewModel
             return Id != null && Id.Length > 0;
         }
 
+        public void UpdateGoods(Goods goods)
+        {
+            UpdateWindow dlg = new UpdateWindow(goods);
+            dlg.ShowDialog();
+        }
+
         string IDataErrorInfo.Error
         {
             get { return (admin as IDataErrorInfo).Error; }
