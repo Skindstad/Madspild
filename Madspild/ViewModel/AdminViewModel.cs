@@ -121,7 +121,7 @@ namespace Madspild.ViewModel
             }
         }
 
-        public string Category
+       /* public string Category
         {
             get { return admin?.Category; }
             set
@@ -132,7 +132,7 @@ namespace Madspild.ViewModel
                     OnPropertyChanged("Category");
                 }
             }
-        }
+        }*/
 
         public string Path
         {
@@ -185,7 +185,7 @@ namespace Madspild.ViewModel
         {
             try
             {
-                repository.Update(Name, Price, Amount, AmountLimit, Category, Path);
+                repository.Update(Name, Price, Amount, AmountLimit, Path);
             }
             catch (Exception ex)
             {
@@ -202,7 +202,7 @@ namespace Madspild.ViewModel
         {
             try
             {
-                repository.Add(Name, Price, Amount, AmountLimit, Category, Path);
+                repository.Add(Name, Price, Amount, AmountLimit, Path);
                 Clear();
             }
             catch (Exception ex)
