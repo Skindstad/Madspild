@@ -13,7 +13,7 @@ namespace Madspild.ViewModel
     {
         public RelayCommand SearchCommand { get; private set; }
         public RelayCommand RemoveCommand { get; private set; }
-        public RelayCommand InsertCommand { get; private set; }
+        public RelayCommand AddCommand { get; private set; }
         public RelayCommand ClearCommand { get; private set; }
         public RelayCommand UpdateCommand { get; private set; }
         public RelayCommand CreateCommand { get; private set; }
@@ -29,7 +29,7 @@ namespace Madspild.ViewModel
             UpdateCommand = new RelayCommand(p => Update(), p => CanUpdate());
             SearchCommand = new RelayCommand(p => Search());
             ClearCommand = new RelayCommand(p => Clear());
-            InsertCommand = new RelayCommand(p => Add(), p => CanAdd());
+            AddCommand = new RelayCommand(p => Add(), p => CanAdd());
             RemoveCommand = new RelayCommand(p => Remove(), p => CanRemove());
             CreateCommand = new RelayCommand(p => (new CreateWindow()).ShowDialog());
         }
@@ -203,6 +203,7 @@ namespace Madspild.ViewModel
             try
             {
                 repository.Add(Name, Price, Amount, AmountLimit, Category, Path);
+                Clear();
             }
             catch (Exception ex)
             {
