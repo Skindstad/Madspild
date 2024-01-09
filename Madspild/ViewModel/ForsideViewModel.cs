@@ -15,8 +15,10 @@ namespace Madspild.ViewModel
     internal class ForsideViewModel : ViewModelBase, IDataErrorInfo
     {
 
-        CurrentUser model;
+        protected CurrentUser model;
         private UserRepository repository = new();
+
+        private string name = "";
 
         public ForsideViewModel()
         {
@@ -25,12 +27,12 @@ namespace Madspild.ViewModel
 
         public string Name
         {
-            get { return model.Name; }
+            get { return name; }
             set
             {
-                if (!model.Name.Equals(value))
+                if (!name.Equals(value))
                 {
-                    model.Name = value;
+                    name = value;
                     OnPropertyChanged("Name");
                 }
             }
