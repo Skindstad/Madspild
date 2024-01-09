@@ -174,6 +174,7 @@ namespace Madspild.ViewModel
             OnPropertyChanged("AmountLimit");
             OnPropertyChanged("Category");
             OnPropertyChanged("SelectedModel");
+            Search();
         }
 
         public void Search()
