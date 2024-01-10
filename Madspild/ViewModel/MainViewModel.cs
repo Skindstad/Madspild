@@ -98,7 +98,7 @@ namespace Madspild.ViewModel
             }
             else if(user[3] == "User")
             {
-                Forside dlg = new();
+                Order dlg = new();
                 dlg.ShowDialog();
             } else
             {

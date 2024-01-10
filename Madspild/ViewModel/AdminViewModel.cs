@@ -21,6 +21,7 @@ namespace Madspild.ViewModel
         private Goods admin = new Goods();
         private GoodsRepository repository = new GoodsRepository();
         private ObservableCollection<Goods> inventory;
+        public ObservableCollection<Basket> OrderItems { get; set; } = new ObservableCollection<Basket>();
 
         public AdminViewModel()
         {
@@ -238,6 +239,27 @@ namespace Madspild.ViewModel
         {
             UpdateWindow dlg = new UpdateWindow(goods);
             dlg.ShowDialog();
+        }
+
+        public void AddToOrder(Goods goods, int quantity)
+        {
+            // Create a new Basket item for the order
+            Basket orderItem = new Basket
+            {
+                Id = "",
+                //PersonEmail = basket.PersonEmail,
+                ProductName = goods.Name,
+                Amount = quantity.ToString(), // Set the ordered quantity
+                Price = goods.Price,
+                BacketDato = "",
+                BoughtDato = ""
+            };
+
+            // Add the order item to the OrderItems collection
+            OrderItems.Add(orderItem);
+
+            // Notify property changed for any relevant properties
+            OnPropertyChanged(nameof(OrderItems));
         }
 
         string IDataErrorInfo.Error
