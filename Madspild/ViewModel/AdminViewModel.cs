@@ -22,7 +22,7 @@ namespace Madspild.ViewModel
         private Goods admin = new Goods();
         private GoodsRepository repository = new GoodsRepository();
         private ObservableCollection<Goods> inventory;
-        public ObservableCollection<Basket> OrderItems { get; set; } = new ObservableCollection<Basket>();
+        //public ObservableCollection<Basket> OrderItems { get; set; } = new ObservableCollection<Basket>();
 
         public AdminViewModel()
         {
@@ -242,7 +242,7 @@ namespace Madspild.ViewModel
             UpdateWindow dlg = new UpdateWindow(goods);
             dlg.ShowDialog();
         }
-
+        /*
         public void AddToOrder(Goods goods, int quantity)
         {
             try
@@ -272,7 +272,7 @@ namespace Madspild.ViewModel
                 OnWarning("Failed to add item to order: " + ex.Message);
             }
         }
-
+        */
         string IDataErrorInfo.Error
         {
             get { return (admin as IDataErrorInfo).Error; }

@@ -23,6 +23,7 @@ namespace Madspild.View
     public partial class Order : Window
     {
         private AdminViewModel admin = new AdminViewModel();
+        private BasketViewModel basket = new BasketViewModel();
         public Order()
         {
             InitializeComponent();
@@ -51,7 +52,7 @@ namespace Madspild.View
                     int selectedQuantity = quantityWindow.SelectedQuantity;
 
                     // Add the selected item with quantity to the new DataGrid
-                    admin.AddToOrder(selectedGoods, selectedQuantity);
+                    basket.Add(selectedGoods, selectedQuantity);
                 }
             }
         }
