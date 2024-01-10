@@ -61,7 +61,7 @@ namespace Madspild.View
                     // Get the selected quantity from the QuantitySelectionWindow
                     int selectedQuantity = quantityWindow.SelectedQuantity;
 
-                    // Add the selected item with quantity to the new DataGrid
+                    // Sends selected item with quantity to Add() method in BasketViewModel
                     combinedViewModel.Basket.Add(selectedGoods, selectedQuantity);
                 }
             }
