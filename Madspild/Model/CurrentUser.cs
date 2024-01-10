@@ -22,19 +22,7 @@ namespace Madspild.Model
         public string Zipcode { get; set; }
         public string City { get; set; }
 
-        public CurrentUser()
-        {
-            Id = "";
-            Name = "";
-            Email = "";
-            Password = "";
-            Access = "";
-            HomePhone = "";
-            WorkPhone = "";
-            Address = "";
-            Zipcode = "";
-            City = "";
-        }
+
 
         public CurrentUser(string id, string name, string email, string password, string access, string homePhone, string workPhone, string address, string zipcode, string city)
         {
