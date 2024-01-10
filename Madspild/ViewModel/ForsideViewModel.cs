@@ -18,7 +18,7 @@ namespace Madspild.ViewModel
         private ObservableCollection<Bought> boughtItems;
         public ForsideViewModel()
         {
-            
+
         }
 
         public ObservableCollection<Bought> BoughtItems
@@ -33,7 +33,6 @@ namespace Madspild.ViewModel
                 }
             }
         }
-
         public string Id
         {
             get { return bought?.Id; }
