@@ -9,7 +9,7 @@
     <DockPanel Margin="10">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Functions">
-                <MenuItem Header="Create address" Command="{Binding Path=CreateCommand}" />
+                <MenuItem Header="Create New User" Command="{Binding Path=CreateCommand}" />
                 <!--<MenuItem Header="Manage zipcodes" Command="{Binding Path=ZipCommand}" />
                 <Separator />
                 <MenuItem Header="Clear fields" Command="{Binding Path=ClearCommand}" />-->

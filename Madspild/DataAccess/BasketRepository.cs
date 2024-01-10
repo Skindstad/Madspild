@@ -106,7 +106,7 @@ namespace Madspild.DataAccess
 
         public void Update(string email, string productName, string amount, string basketDate)
         {
-            Add(new Basket("", email, productName, amount, "", basketDate, ""));
+            Update(new Basket("", email, productName, amount, "", basketDate, ""));
         }
 
         public void Update(Basket basket)
@@ -166,7 +166,7 @@ namespace Madspild.DataAccess
                 {
                         string personId = UserRepository.GetId(email);
                         string date = DateTime.Now.ToString("yyyyMMddHHmmss").ToString();
-                        SqlCommand command = new SqlCommand("UPDATE Basket SET Bought = 'True', BoughtDato = @Dato WHERE PersonId = @Id AND Bought = 'False'", connection);;
+                        SqlCommand command = new SqlCommand("UPDATE Basket SET Bought = 'true', BoughtDato = @Dato WHERE PersonId = @Id AND Bought = 'false'", connection);;
                         command.Parameters.Add(CreateParam("@Dato", date, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Id", personId, SqlDbType.NVarChar));
                         connection.Open();
@@ -190,7 +190,10 @@ namespace Madspild.DataAccess
             throw new DbException("Error in Basket repositiory: " + error);
         }
 
-
+        public void Remove(string email, string productName, string basketDate)
+        {
+            Remove(new Basket("", email, productName, "" , "", basketDate, ""));
+        }
         public void Remove(Basket basket)
         {
             string error = "";
@@ -202,9 +205,9 @@ namespace Madspild.DataAccess
                 SqlCommand command = new SqlCommand("DELETE FROM Basket WHERE Id = @Id", connection);
                 command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
                 connection.Open();
-                command.ExecuteNonQuery();
                 if (command.ExecuteNonQuery() == 1)
                 {
+                    command.ExecuteNonQuery();
                     list.Remove(new Basket(id, "", "", "", "", "", ""));
                     OnChanged(DbOperation.DELETE, DbModeltype.Users);
                     return;

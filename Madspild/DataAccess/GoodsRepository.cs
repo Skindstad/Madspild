@@ -142,9 +142,9 @@ namespace Madspild.DataAccess
                 SqlCommand command = new SqlCommand("DELETE FROM Goods WHERE Id = @Id", connection);
                 command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
                 connection.Open();
-                command.ExecuteNonQuery();
                 if (command.ExecuteNonQuery() == 1)
                 {
+                    command.ExecuteNonQuery();
                     list.Remove(new Goods(id, name, "", "", "", ""));
                     OnChanged(DbOperation.DELETE, DbModeltype.Users);
                     return;

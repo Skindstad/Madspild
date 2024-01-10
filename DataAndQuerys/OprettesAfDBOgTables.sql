@@ -17,7 +17,7 @@ Create Table Users
 Id int not null Identity(1,1) Primary key,
 Email varchar(255) Not Null,
 Password varchar(255) Not null,
-Access int not null FOREIGN KEY REFERENCES Access(Id),
+Access int DEFAULT 2 FOREIGN KEY REFERENCES Access(Id),
 PersonName Varchar(255) not null,
 HomePhone nchar(10) not null,
 WorkPhone nchar(10) not null,
