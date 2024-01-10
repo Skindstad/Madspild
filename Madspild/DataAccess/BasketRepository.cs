@@ -28,10 +28,33 @@ namespace Madspild.DataAccess
         {
             try
             {
-                SqlCommand cmd = new("Select Id, Email, ProductName, Basket.Amount, Price, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND ProductName LIKE @Name AND Basket.Amount LIKE @Amount", connection);
+                SqlCommand cmd = new("Select Id, Email, ProductName, Basket.Amount, Price, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND ProductName LIKE @Name AND Basket.Amount LIKE @Amount AND Bought = 'false'", connection);
                 cmd.Parameters.Add(CreateParam("@Name", productName + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Email", personEmail + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Amount", amount + "%", SqlDbType.NVarChar));
+                connection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                list.Clear();
+                while (reader.Read()) list.Add(new Basket(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), "", reader[5].ToString()));
+                OnChanged(DbOperation.SELECT, DbModeltype.Basket);
+
+            }
+            catch (Exception ex)
+            {
+                throw new DbException("Error in Basket repositiory: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+        }
+
+        public void Bought(string personEmail)
+        {
+            try
+            {
+                SqlCommand cmd = new("Select Id, Email, ProductName, Basket.Amount, Price, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND Bought = 'true'", connection);
+                cmd.Parameters.Add(CreateParam("@Email", personEmail + "%", SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
@@ -166,7 +189,7 @@ namespace Madspild.DataAccess
                 {
                         string personId = UserRepository.GetId(email);
                         string date = DateTime.Now.ToString("yyyyMMddHHmmss").ToString();
-                        SqlCommand command = new SqlCommand("UPDATE Basket SET Bought = 'True', BoughtDato = @Dato WHERE PersonId = @Id AND Bought = 'False'", connection);;
+                        SqlCommand command = new SqlCommand("UPDATE Basket SET Bought = 'true', BoughtDato = @Dato WHERE PersonId = @Id AND Bought = 'false'", connection);;
                         command.Parameters.Add(CreateParam("@Dato", date, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Id", personId, SqlDbType.NVarChar));
                         connection.Open();
