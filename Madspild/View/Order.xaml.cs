@@ -61,8 +61,10 @@ namespace Madspild.View
                     // Get the selected quantity from the QuantitySelectionWindow
                     int selectedQuantity = quantityWindow.SelectedQuantity;
 
+                    string selectedEmail = quantityWindow.SelectedEmail;
+
                     // Sends selected item with quantity to Add() method in BasketViewModel
-                    combinedViewModel.Basket.Add(selectedGoods, selectedQuantity);
+                    combinedViewModel.Basket.Add(selectedGoods, selectedQuantity, selectedEmail);
                 }
             }
         }

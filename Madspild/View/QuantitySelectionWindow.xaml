@@ -5,15 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Madspild.View"
         mc:Ignorable="d"
-        Title="Quantity Selection" Height="150" Width="300">
+        Title="Quantity Selection" Height="180" Width="440">
     <Grid>
-        <StackPanel Margin="10">
-            <TextBlock Text="Select Quantity:" />
-            <TextBox Name="txtQuantity" Width="50" Margin="0,5,0,5" />
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="OK" Width="75" Margin="0,0,10,0" IsDefault="True" Click="OKButton_Click" />
-                <Button Content="Cancel" Width="75" IsCancel="True" />
-            </StackPanel>
-        </StackPanel>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type ValidationError}">
+                <TextBlock FontStyle="Italic" FontSize="10" Foreground="Red" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{Binding Path=ErrorContent}" />
+            </DataTemplate>
+        </Grid.Resources>
+        <TextBlock Text="Antal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,20,0,0" />
+        <TextBlock Text="Email" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,60,0,0" />
+
+        <TextBox Name="txtQuantity" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,20,0,0" Width="80" Height="22" />
+        <TextBox Name="txtEmail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,60,0,0" Width="150" Height="22" />
+
+        <Button Content="Ok" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="247,100,0,0" Width="70" Height="25" IsDefault="True" Click="OKButton_Click" />
+        <Button Content="Cancel" Click="CloseButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="337,100,0,0" Width="70" Height="25" IsCancel="True" />
     </Grid>
 </Window>
