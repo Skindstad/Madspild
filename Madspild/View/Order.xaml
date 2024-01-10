@@ -7,8 +7,12 @@
         mc:Ignorable="d"
         Title="Order" Height="350" Width="525">
     <DockPanel Margin="10">
-        
-    <Grid>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Functions">
+                <MenuItem Header="Bought Goods" Command="{Binding Path=Basket.BoughtCommand}" />
+            </MenuItem>
+        </Menu>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="40" />

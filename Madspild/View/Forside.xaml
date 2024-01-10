@@ -28,34 +28,22 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" VerticalAlignment="Bottom" Text="Navn"/>
             <TextBlock Grid.Column="1" VerticalAlignment="Bottom" Text="Email"/>
-            <TextBlock Grid.Column="2" VerticalAlignment="Bottom" Text="Vare navn"/>
-            <TextBlock Grid.Column="3" VerticalAlignment="Bottom" Text="Antal"/>
-            <TextBlock Grid.Column="4" VerticalAlignment="Bottom" Text="Beløb"/>
-            <TextBlock Grid.Column="5" VerticalAlignment="Bottom" Text="???"/>
+            <TextBlock Grid.Column="2" VerticalAlignment="Bottom" Text="Antal"/>
+            <TextBlock Grid.Column="3" VerticalAlignment="Bottom" Text="Beløb"/>
+            <TextBlock Grid.Column="4" VerticalAlignment="Bottom" Text="Dato"/>
+
             <TextBox Grid.Row="1" Grid.Column="0" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=Name}" />
             <TextBox Grid.Row="1" Grid.Column="1" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=Email}" />
-            <TextBox Grid.Row="1" Grid.Column="2" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=HomePhone}" />
-            <TextBox Grid.Row="1" Grid.Column="3" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=WorkPhone}" />
-            <TextBox Grid.Row="1" Grid.Column="4" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=Address}" />
-            <TextBox Grid.Row="1" Grid.Column="5" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=Zipcode}" />
+            <TextBox Grid.Row="1" Grid.Column="2" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=Amount}" />
+            <TextBox Grid.Row="1" Grid.Column="3" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=Total}" />
+            <TextBox Grid.Row="1" Grid.Column="4" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding Path=BoughtDato}" />
+
             <Button Grid.Row="1" Grid.Column="7" Width="60" Height="22" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Search" Command="{Binding Path=SearchCommand}" />
-            <DataGrid Name="grid" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="8" ItemsSource="{Binding Users}">
+            <DataGrid Name="grid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="8" ItemsSource="{Binding BoughtItems}">
                 <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">
-                        <EventSetter Event="MouseDoubleClick" Handler="grid_MouseDoubleClick"/>
                     </Style>
                 </DataGrid.RowStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Width="30" Binding="{Binding Id}" />
-                    <DataGridTextColumn Header="Navn" Width="*" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Email" Width="*" Binding="{Binding Email}" />
-                    <DataGridTextColumn Header="Adgang" Width="60" Binding="{Binding Access}" />
-                    <DataGridTextColumn Header="Hjemme Tlf." Width="100"  Binding="{Binding HomePhone}" />
-                    <DataGridTextColumn Header="Arbejdes Tlf." Width="100" Binding="{Binding WorkPhone}" />
-                    <DataGridTextColumn Header="Adresse" Width="*" Binding="{Binding Address}" />
-                    <DataGridTextColumn Header="Post Nr." Width="80" Binding="{Binding Zipcode}" />
-                    <DataGridTextColumn Header="By" Width="*" Binding="{Binding City}" />
-                </DataGrid.Columns>
             </DataGrid>
         </Grid>
     </DockPanel>

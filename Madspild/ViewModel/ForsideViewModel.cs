@@ -14,33 +14,107 @@ namespace Madspild.ViewModel
 {
     internal class ForsideViewModel : ViewModelBase, IDataErrorInfo
     {
-
-        protected CurrentUser model;
-        private UserRepository repository = new();
-
-        private string name = "";
-
+        private Bought bought = new Bought();
+        private ObservableCollection<Bought> boughtItems;
         public ForsideViewModel()
         {
-            Name = model!.Name;
+            
+        }
+
+        public ObservableCollection<Bought> BoughtItems
+        {
+            get { return boughtItems; }
+            set
+            {
+                if (boughtItems != value)
+                {
+                    boughtItems = value;
+                    OnPropertyChanged("BoughtItems");
+                }
+            }
+        }
+
+        public string Id
+        {
+            get { return bought?.Id; }
+            set
+            {
+                if (!bought.Id.Equals(value))
+                {
+                    bought.Id = value;
+                    OnPropertyChanged("Id");
+                }
+            }
         }
 
         public string Name
         {
-            get { return name; }
+            get { return bought?.Name; }
             set
             {
-                if (!name.Equals(value))
+                if (!bought.Name.Equals(value))
                 {
-                    name = value;
+                    bought.Name = value;
                     OnPropertyChanged("Name");
+                }
+            }
+        }
+
+        public string Email
+        {
+            get { return bought?.Email; }
+            set
+            {
+                if (!bought.Email.Equals(value))
+                {
+                    bought.Email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        public string Amount
+        {
+            get { return bought?.Amount; }
+            set
+            {
+                if (!bought.Amount.Equals(value))
+                {
+                    bought.Amount = value;
+                    OnPropertyChanged("Amount");
+                }
+            }
+        }
+
+        public string Total
+        {
+            get { return bought?.Total; }
+            set
+            {
+                if (!bought.Total.Equals(value))
+                {
+                    bought.Total = value;
+                    OnPropertyChanged("Total");
+                }
+            }
+        }
+
+        public string BoughtDato
+        {
+            get { return bought?.BoughtDato; }
+            set
+            {
+                if (!bought.BoughtDato.Equals(value))
+                {
+                    bought.BoughtDato = value;
+                    OnPropertyChanged("BoughtDato");
                 }
             }
         }
 
         string IDataErrorInfo.Error
         {
-            get { return (model as IDataErrorInfo).Error; }
+            get { return (bought as IDataErrorInfo).Error; }
         }
 
         string IDataErrorInfo.this[string propertyName]
@@ -50,7 +124,7 @@ namespace Madspild.ViewModel
                 string error = null;
                 try
                 {
-                    error = (model as IDataErrorInfo)[propertyName];
+                    error = (bought as IDataErrorInfo)[propertyName];
                 }
                 catch
                 {

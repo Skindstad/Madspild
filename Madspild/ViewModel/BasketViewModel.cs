@@ -13,6 +13,7 @@ namespace Madspild.ViewModel
     public class BasketViewModel : ViewModelBase, IDataErrorInfo
     {
         public RelayCommand AddCommand { get; private set; }
+        public RelayCommand BoughtCommand { get; private set; }
 
         private Basket basket = new Basket();
         private BasketRepository repository = new BasketRepository();
@@ -21,6 +22,7 @@ namespace Madspild.ViewModel
         {
             repository.RepositoryChanged += ModelChanged;
             Search();
+            BoughtCommand = new RelayCommand(p => (new Forside()).ShowDialog());
             //AddCommand = new RelayCommand(p => Add(), p => CanAdd());
         }
 
