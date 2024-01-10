@@ -28,7 +28,7 @@ namespace Madspild.DataAccess
         {
             try
             {
-                SqlCommand cmd = new("Select Id, Email, ProductName, Basket.Amount, Price, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND ProductName LIKE @Name AND Basket.Amount LIKE @Amount", connection);
+                SqlCommand cmd = new("Select Basket.Id, Email, ProductName, Basket.Amount, Basket.Price, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND ProductName LIKE @Name AND Basket.Amount LIKE @Amount", connection);
                 cmd.Parameters.Add(CreateParam("@Name", productName + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Email", personEmail + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Amount", amount + "%", SqlDbType.NVarChar));
