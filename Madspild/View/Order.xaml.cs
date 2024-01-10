@@ -22,6 +22,7 @@ namespace Madspild.View
         public AdminViewModel Admin { get; set; }
         public BasketViewModel Basket { get; set; }
 
+
         public CombinedViewModel()
         {
             Admin = new AdminViewModel();
@@ -61,7 +62,7 @@ namespace Madspild.View
                     // Get the selected quantity from the QuantitySelectionWindow
                     int selectedQuantity = quantityWindow.SelectedQuantity;
 
-                    // Sends selected item with quantity to Add() method in BasketViewModel
+                    // Add the selected item with quantity to the new DataGrid
                     combinedViewModel.Basket.Add(selectedGoods, selectedQuantity);
                 }
             }

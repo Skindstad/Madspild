@@ -18,6 +18,7 @@ namespace Madspild.ViewModel
         private Basket basket = new Basket();
         private BasketRepository repository = new BasketRepository();
         private ObservableCollection<Basket> orderItems;
+
         public BasketViewModel() 
         {
             repository.RepositoryChanged += ModelChanged;
@@ -60,6 +61,7 @@ namespace Madspild.ViewModel
                 }
             }
         }
+
 
         public string PersonEmail
         {
