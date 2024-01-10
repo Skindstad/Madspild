@@ -10,6 +10,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Functions">
                 <MenuItem Header="Create New Data" Command="{Binding Path=CreateCommand}" />
+                <MenuItem Header="Manage Users" Command="{Binding Path=UsersCommand}" />
             </MenuItem>
         </Menu>
         <Grid>

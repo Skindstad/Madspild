@@ -34,7 +34,7 @@ namespace Madspild.ViewModel
         public UsersViewModel() 
         {
             Search();
-            SearchCommand = new RelayCommand(p => Search(), p => CanSearch());
+            SearchCommand = new RelayCommand(p => Search());
             CreateCommand = new RelayCommand(p => (new CreateUserView()).ShowDialog());
             users = new ObservableCollection<User>(repository);
             repository.RepositoryChanged += Refresh;
@@ -51,7 +51,7 @@ namespace Madspild.ViewModel
             get { return users; }
             set
             {
-                if (!users.Equals(value))
+                if (users != value)
                 {
                     users = value;
                     OnPropertyChanged("Users");
@@ -180,14 +180,6 @@ namespace Madspild.ViewModel
         {
             UpdateUserView dlg = new (user);
             dlg.ShowDialog();
-        }
-
-        private bool CanSearch()
-        {
-            return id.Length > 0 || name.Length > 0 ||
-                      email.Length > 0 || homePhone.Length > 0 ||
-                      workPhone.Length > 0 || address.Length > 0 ||
-                      zipcode.Length > 0;
         }
 
 

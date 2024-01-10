@@ -91,18 +91,18 @@ namespace Madspild.ViewModel
 
         private void AccessRight(List<string> user)
         {
-            if (user[3] == "Admin")
+            if (user?[3] == "Admin")
             {
                 Admin dlg = new();
                 dlg.ShowDialog();
             }
-            else if(user[3] == "User")
+            else if(user?[3] == "User")
             {
                 Forside dlg = new();
                 dlg.ShowDialog();
             } else
             {
-
+                Clear();
             }
         }
 
