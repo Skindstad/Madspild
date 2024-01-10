@@ -245,23 +245,32 @@ namespace Madspild.ViewModel
 
         public void AddToOrder(Goods goods, int quantity)
         {
-            // Create a new Basket item for the order
-            Basket orderItem = new Basket
+            try
             {
-                Id = "",
-                //PersonEmail = basket.PersonEmail,
-                ProductName = goods.Name,
-                Amount = quantity.ToString(), // Set the ordered quantity
-                Price = goods.Price,
-                BacketDato = "",
-                BoughtDato = ""
-            };
+                // Create a new Basket item for the order
+                Basket orderItem = new Basket
+                {
+                    Id = admin.Id,
+                    PersonEmail = "", // Assign the user's email
+                    ProductName = goods.Name,
+                    Amount = quantity.ToString(), // Set the ordered quantity
+                    Price = goods.Price,
+                    BacketDato = "",
+                    BoughtDato = ""
+                };
 
-            // Add the order item to the OrderItems collection
-            OrderItems.Add(orderItem);
+                // Use BasketRepository to add the order item
+                BasketRepository basketRepository = new BasketRepository();
+                basketRepository.Add(orderItem);
 
-            // Notify property changed for any relevant properties
-            OnPropertyChanged(nameof(OrderItems));
+                // Notify property changed for any relevant properties
+                OnPropertyChanged(nameof(OrderItems));
+            }
+            catch (DbException ex)
+            {
+                // Handle exception (show a warning, log, etc.)
+                OnWarning("Failed to add item to order: " + ex.Message);
+            }
         }
 
         string IDataErrorInfo.Error
