@@ -17,21 +17,31 @@ using System.Windows.Shapes;
 
 namespace Madspild.View
 {
+    public class CombinedViewModel
+    {
+        public AdminViewModel Admin { get; set; }
+        public BasketViewModel Basket { get; set; }
+
+        public CombinedViewModel()
+        {
+            Admin = new AdminViewModel();
+            Basket = new BasketViewModel();
+        }
+    }
     /// <summary>
     /// Interaction logic for Order.xaml
     /// </summary>
     public partial class Order : Window
     {
-        private AdminViewModel admin = new AdminViewModel();
-        private BasketViewModel basket = new BasketViewModel();
+        private CombinedViewModel combinedViewModel = new CombinedViewModel();
         public Order()
         {
             InitializeComponent();
-            admin.WarningHandler += delegate (object sender, MessageEventArgs e) {
+            combinedViewModel.Admin.WarningHandler += delegate (object sender, MessageEventArgs e) {
                 MessageBox.Show(e.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             };
-            admin.CloseHandler += delegate (object sender, EventArgs e) { Close(); };
-            DataContext = admin;
+            combinedViewModel.Admin.CloseHandler += delegate (object sender, EventArgs e) { Close(); };
+            DataContext = combinedViewModel;
         }
 
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -52,7 +62,7 @@ namespace Madspild.View
                     int selectedQuantity = quantityWindow.SelectedQuantity;
 
                     // Add the selected item with quantity to the new DataGrid
-                    basket.Add(selectedGoods, selectedQuantity);
+                    combinedViewModel.Basket.Add(selectedGoods, selectedQuantity);
                 }
             }
         }

@@ -26,13 +26,13 @@
         <TextBlock Grid.Column="0" VerticalAlignment="Top" Text="Vare ID" Height="16" Margin="0,14,0,0"/>
         <TextBlock Grid.Column="2" VerticalAlignment="Top" Text="Vare navn" Margin="0,14,0,0" Height="16"/>
         <TextBlock Grid.Column="4" VerticalAlignment="Top" Text="Antal" Margin="0,14,0,0" Height="16"/>
-        <TextBox Grid.Row="1" Grid.Column="0" Height="22" VerticalAlignment="Top" Text="{Binding Path=Id}" />
-        <TextBox Grid.Row="1" Grid.Column="2" Height="22" VerticalAlignment="Top" Text="{Binding Path=Name}" />
-        <TextBox Grid.Row="1" Grid.Column="4" Height="22" VerticalAlignment="Top" Text="{Binding Path=Amount}" />
+        <TextBox Grid.Row="1" Grid.Column="0" Height="22" VerticalAlignment="Top" Text="{Binding Path=Admin.Id}" />
+        <TextBox Grid.Row="1" Grid.Column="2" Height="22" VerticalAlignment="Top" Text="{Binding Path=Admin.Name}" />
+        <TextBox Grid.Row="1" Grid.Column="4" Height="22" VerticalAlignment="Top" Text="{Binding Path=Admin.Amount}" />
 
-        <Button Grid.Row="1" Grid.Column="8" Width="60" Height="22" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Search" Command="{Binding Path=SearchCommand}" />
+        <Button Grid.Row="1" Grid.Column="8" Width="60" Height="22" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Search" Command="{Binding Path=Admin.SearchCommand}" />
 
-        <DataGrid Name="grid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding Inventory}">
+        <DataGrid Name="grid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding Admin.Inventory}">
             <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">
                         <EventSetter Event="MouseDoubleClick" Handler="Grid_MouseDoubleClick"/>
@@ -40,7 +40,7 @@
             </DataGrid.RowStyle>
         </DataGrid>
 
-            <DataGrid Name="orderGrid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" ItemsSource="{Binding OrderItems}">
+            <DataGrid Name="orderGrid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" ItemsSource="{Binding Basket.OrderItems}">
                 <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">
                     </Style>
