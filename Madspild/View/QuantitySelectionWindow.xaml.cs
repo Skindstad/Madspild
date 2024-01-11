@@ -21,7 +21,7 @@ namespace Madspild.View
     public partial class QuantitySelectionWindow : Window
     {
         public int SelectedQuantity { get; private set; }
-        public string SelectedEmail { get; private set; }
+        //public string SelectedEmail { get; private set; }
         private Goods selectedGoods;
         public QuantitySelectionWindow(Goods goods)
         {
@@ -36,7 +36,7 @@ namespace Madspild.View
             {
                 // Set the selected quantity and close the window with DialogResult
                 SelectedQuantity = quantity;
-                SelectedEmail = txtEmail.Text;
+                //SelectedEmail = txtEmail.Text;
                 DialogResult = true;
                 Close();
             }

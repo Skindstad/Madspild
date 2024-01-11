@@ -13,10 +13,10 @@
             </DataTemplate>
         </Grid.Resources>
         <TextBlock Text="Antal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,20,0,0" />
-        <TextBlock Text="Email" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,60,0,0" />
+        <!--<TextBlock Text="Email" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,60,0,0" />-->
 
         <TextBox Name="txtQuantity" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,20,0,0" Width="80" Height="22" />
-        <TextBox Name="txtEmail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,60,0,0" Width="150" Height="22" />
+        <!--<TextBox Name="txtEmail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,60,0,0" Width="150" Height="22" />-->
 
         <Button Content="Ok" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="247,100,0,0" Width="70" Height="25" IsDefault="True" Click="OKButton_Click" />
         <Button Content="Cancel" Click="CloseButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="337,100,0,0" Width="70" Height="25" IsCancel="True" />

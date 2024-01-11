@@ -28,14 +28,37 @@ namespace Madspild.DataAccess
         {
             try
             {
-                SqlCommand cmd = new("Select Basket.Id, Email, ProductName, Basket.Amount, Basket.Price, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND ProductName LIKE @Name AND Basket.Amount LIKE @Amount", connection);
+                SqlCommand cmd = new("Select Basket.Id, Email, ProductName, Basket.Amount, Basket.Price, BasketDato, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND ProductName LIKE @Name AND Basket.Amount LIKE @Amount AND Bought = 'false'", connection);
                 cmd.Parameters.Add(CreateParam("@Name", productName + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Email", personEmail + "%", SqlDbType.NVarChar));
                 cmd.Parameters.Add(CreateParam("@Amount", amount + "%", SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
-                while (reader.Read()) list.Add(new Basket(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), "", reader[5].ToString()));
+                while (reader.Read()) list.Add(new Basket(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString()));
+                OnChanged(DbOperation.SELECT, DbModeltype.Basket);
+
+            }
+            catch (Exception ex)
+            {
+                throw new DbException("Error in Basket repositiory: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+        }
+
+        public void Search(string personEmail)
+        {
+            try
+            {
+                SqlCommand cmd = new("Select Basket.Id, Email, ProductName, Basket.Amount, Basket.Price, BasketDato, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND Bought = 'true'", connection);
+                cmd.Parameters.Add(CreateParam("@Email", personEmail + "%", SqlDbType.NVarChar));
+                connection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                list.Clear();
+                while (reader.Read()) list.Add(new Basket(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString()));
                 OnChanged(DbOperation.SELECT, DbModeltype.Basket);
 
             }
@@ -53,6 +76,7 @@ namespace Madspild.DataAccess
         {
             Add(new Basket("", email, productName, amount, "", "", ""));
         }
+
 
         public void Add(Basket basket)
         {
