@@ -49,7 +49,7 @@ namespace Madspild.DataAccess
             }
         }
 
-        public void Search(string personEmail)
+        public void Bought(string personEmail)
         {
             try
             {
