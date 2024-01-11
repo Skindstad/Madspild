@@ -195,11 +195,11 @@ namespace Madspild.ViewModel
             return basket.IsValid;
         }
 
-        public void Add(Goods goods, int quantity, string email)
+        public void Add(Goods goods, int quantity)
         {
             try
             {
-                repository.Add(email, goods.Name, quantity.ToString());
+                repository.Add(PersonEmail, goods.Name, quantity.ToString());
             }
             catch (Exception ex)
             {
