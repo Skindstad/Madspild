@@ -160,7 +160,7 @@ namespace Madspild.ViewModel
 
         public void Search()
         {
-            repository.Search(PersonEmail);
+            repository.Bought(PersonEmail);
         }
 
         string IDataErrorInfo.Error
