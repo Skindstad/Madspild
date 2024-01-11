@@ -49,12 +49,12 @@ namespace Madspild.DataAccess
             }
         }
 
-        public void Search(string personEmail)
+        public void Bought(string personEmail)
         {
             try
             {
-                SqlCommand cmd = new("Select Basket.Id, Email, ProductName, Basket.Amount, Basket.Price, BasketDato, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email LIKE @Email AND Bought = 'true'", connection);
-                cmd.Parameters.Add(CreateParam("@Email", personEmail + "%", SqlDbType.NVarChar));
+                SqlCommand cmd = new("Select Basket.Id, Email, ProductName, Basket.Amount, Basket.Price, BasketDato, BoughtDato From Basket Join Users On Users.Id = Basket.PersonId Join Goods On Goods.Id = Basket.ProductId Where Email = @Email AND Bought = 'true'", connection);
+                cmd.Parameters.Add(CreateParam("@Email", personEmail, SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 list.Clear();
