@@ -11,6 +11,7 @@
             <MenuItem Header="Functions">
                 <MenuItem Header="Create New Data" Command="{Binding Path=CreateCommand}" />
                 <MenuItem Header="Manage Users" Command="{Binding Path=UsersCommand}" />
+                <MenuItem Header="Bought Goods" Command="{Binding Path=BoughtCommand}" />
             </MenuItem>
         </Menu>
         <Grid>

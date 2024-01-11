@@ -14,14 +14,19 @@ namespace Madspild.ViewModel
 {
     internal class ForsideViewModel : ViewModelBase, IDataErrorInfo
     {
-        private Bought bought = new Bought();
-        private ObservableCollection<Bought> boughtItems;
+        public RelayCommand SearchCommand { get; private set; }
+
+        private Basket basket = new Basket();
+        private BasketRepository repository = new BasketRepository();
+        private ObservableCollection<Basket> boughtItems;
         public ForsideViewModel()
         {
-
+            repository.RepositoryChanged += ModelChanged;
+            Search();
+            SearchCommand = new RelayCommand(p => Search());
         }
 
-        public ObservableCollection<Bought> BoughtItems
+        public ObservableCollection<Basket> BoughtItems
         {
             get { return boughtItems; }
             set
@@ -33,87 +38,134 @@ namespace Madspild.ViewModel
                 }
             }
         }
-        public string Id
+
+        public void ModelChanged(object sender, DbEventArgs e)
         {
-            get { return bought?.Id; }
+            if (e.Operation != DbOperation.SELECT)
+            {
+                Clear();
+            }
+            BoughtItems = new ObservableCollection<Basket>(repository);
+        }
+
+        public string PersonEmail
+        {
+            get { return basket?.PersonEmail; }
             set
             {
-                if (!bought.Id.Equals(value))
+                if (!basket.PersonEmail.Equals(value))
                 {
-                    bought.Id = value;
-                    OnPropertyChanged("Id");
+                    basket.PersonEmail = value;
+                    OnPropertyChanged("PersonEmail");
                 }
             }
         }
 
-        public string Name
+        public string ProductName
         {
-            get { return bought?.Name; }
+            get { return basket?.ProductName; }
             set
             {
-                if (!bought.Name.Equals(value))
+                if (!basket.ProductName.Equals(value))
                 {
-                    bought.Name = value;
-                    OnPropertyChanged("Name");
-                }
-            }
-        }
-
-        public string Email
-        {
-            get { return bought?.Email; }
-            set
-            {
-                if (!bought.Email.Equals(value))
-                {
-                    bought.Email = value;
-                    OnPropertyChanged("Email");
+                    basket.ProductName = value;
+                    OnPropertyChanged("ProductName");
                 }
             }
         }
 
         public string Amount
         {
-            get { return bought?.Amount; }
+            get { return basket?.Amount; }
             set
             {
-                if (!bought.Amount.Equals(value))
+                if (!basket.Amount.Equals(value))
                 {
-                    bought.Amount = value;
+                    basket.Amount = value;
                     OnPropertyChanged("Amount");
                 }
             }
         }
 
-        public string Total
+        public string Price
         {
-            get { return bought?.Total; }
+            get { return basket?.Price; }
             set
             {
-                if (!bought.Total.Equals(value))
+                if (!basket.Price.Equals(value))
                 {
-                    bought.Total = value;
-                    OnPropertyChanged("Total");
+                    basket.Price = value;
+                    OnPropertyChanged("Price");
+                }
+            }
+        }
+
+        public string BacketDato
+        {
+            get { return basket?.BacketDato; }
+            set
+            {
+                if (!basket.BacketDato.Equals(value))
+                {
+                    basket.BacketDato = value;
+                    OnPropertyChanged("BacketDato");
                 }
             }
         }
 
         public string BoughtDato
         {
-            get { return bought?.BoughtDato; }
+            get { return basket?.BoughtDato; }
             set
             {
-                if (!bought.BoughtDato.Equals(value))
+                if (!basket.BoughtDato.Equals(value))
                 {
-                    bought.BoughtDato = value;
+                    basket.BoughtDato = value;
                     OnPropertyChanged("BoughtDato");
                 }
             }
         }
 
+        public Basket SelectedModel
+        {
+            get { return basket; }
+            set
+            {
+                basket = value;
+                OnPropertyChanged("Id");
+                OnPropertyChanged("PersonEmail");
+                OnPropertyChanged("ProductName");
+                OnPropertyChanged("Amount");
+                OnPropertyChanged("Price");
+                OnPropertyChanged("BacketDato");
+                OnPropertyChanged("BoughtDato");
+                OnPropertyChanged("SelectedModel");
+            }
+        }
+
+        private void Clear()
+        {
+            SelectedModel = null;
+            basket = new Basket();
+            OnPropertyChanged("Id");
+            OnPropertyChanged("PersonEmail");
+            OnPropertyChanged("ProductName");
+            OnPropertyChanged("Amount");
+            OnPropertyChanged("Price");
+            OnPropertyChanged("BacketDato");
+            OnPropertyChanged("BoughtDato");
+            OnPropertyChanged("SelectedModel");
+            Search();
+        }
+
+        public void Search()
+        {
+            repository.Search(PersonEmail);
+        }
+
         string IDataErrorInfo.Error
         {
-            get { return (bought as IDataErrorInfo).Error; }
+            get { return (basket as IDataErrorInfo).Error; }
         }
 
         string IDataErrorInfo.this[string propertyName]
@@ -123,7 +175,7 @@ namespace Madspild.ViewModel
                 string error = null;
                 try
                 {
-                    error = (bought as IDataErrorInfo)[propertyName];
+                    error = (basket as IDataErrorInfo)[propertyName];
                 }
                 catch
                 {
