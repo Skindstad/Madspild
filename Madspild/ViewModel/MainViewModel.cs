@@ -15,8 +15,8 @@ namespace Madspild.ViewModel
     {
         public RelayCommand LoginCommand { get; set; }
 
-        public static UserRepository repository = new ();
-        List<string> user = [];
+        public static UserRepository repository = new();
+        public static List<string> user {  get; set; }
 
         private string email = "";
         private string password = "";

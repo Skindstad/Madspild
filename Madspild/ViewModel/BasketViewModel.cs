@@ -15,6 +15,8 @@ namespace Madspild.ViewModel
         public RelayCommand AddCommand { get; private set; }
         public RelayCommand BoughtCommand { get; private set; }
 
+        public List<string> user = MainViewModel.user;
+
         private Basket basket = new Basket();
         private BasketRepository repository = new BasketRepository();
         private ObservableCollection<Basket> orderItems;
@@ -175,14 +177,14 @@ namespace Madspild.ViewModel
 
         public void Search()
         {
-            repository.Search(PersonEmail, ProductName, Amount);
+            repository.Search(user[2], ProductName, Amount);
         }
 
         public void Update()
         {
             try
             {
-                repository.Update(PersonEmail, ProductName, Amount, BacketDato);
+                repository.Update(user[2], ProductName, Amount, BacketDato);
             }
             catch (Exception ex)
             {
@@ -195,11 +197,11 @@ namespace Madspild.ViewModel
             return basket.IsValid;
         }
 
-        public void Add(Goods goods, int quantity, string email)
+        public void Add(Goods goods, int quantity)
         {
             try
             {
-                repository.Add(email, goods.Name, quantity.ToString());
+                repository.Add(user[2], goods.Name, quantity.ToString());
             }
             catch (Exception ex)
             {
