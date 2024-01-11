@@ -19,6 +19,7 @@ namespace Madspild.View
     /// <summary>
     /// Interaction logic for UpdateUserView.xaml
     /// </summary>
+    /// // Lavet af Jakob
     public partial class UpdateUserView : Window
     {
         private UserViewModel model;

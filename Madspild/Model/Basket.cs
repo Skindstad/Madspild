@@ -12,14 +12,14 @@ namespace Madspild.Model
     public class Basket : IDataErrorInfo, IComparable<Basket>
     {
         public string Id { get; set; }    // repræsenterer Id
-        public string PersonEmail { get; set; }    // repræsenterer Name
-        public string ProductName { get; set; }
-        public string Amount { get; set; }
-        public string Price { get; set; }
-        public string BacketDato { get; set; }
-        public string BoughtDato { get; set; }
+        public string PersonEmail { get; set; }    // repræsenterer Email
+        public string ProductName { get; set; } // repræsenterer Name
+        public string Amount { get; set; } // repræsenterer Amount
+        public string Price { get; set; } // repræsenterer Price
+        public string BacketDato { get; set; } // repræsenterer Basket Dato
+        public string BoughtDato { get; set; } // repræsenterer Bought Dato
 
-
+        // Opretter et objekt ved at sætte alle felter til blank.
         public Basket()
         {
             Id = "";
@@ -30,7 +30,8 @@ namespace Madspild.Model
             BacketDato = "";
             BoughtDato = "";
         }
-
+        // Opretter et objekt, hvor alle felter initialiseres med parametre.
+        // Konstruktøren garanterer ikke, at objektet er lovligt.
         public Basket(string id, string personEmail, string productName, string amount, string price, string backetDato, string boughtDato)
         {
             Id = id;
@@ -41,7 +42,7 @@ namespace Madspild.Model
             BacketDato = backetDato;
             BoughtDato = boughtDato;
         }
-
+        // Implementerer sammenligning alene på Id.
         public override bool Equals(object obj)
         {
             try
@@ -64,7 +65,8 @@ namespace Madspild.Model
         {
             return Id.CompareTo(basket.Id);
         }
-
+        // Validering af objektet.
+        // Arrayet angiver hvilke properties, der skal valideres.
         private static readonly string[] validatedProperties = { "PersonEmail", "ProductName", "Amount", "Price", "backetDato", "boughtDato" };
 
         public bool IsValid
@@ -103,7 +105,7 @@ namespace Madspild.Model
             }
             return null;
         }
-
+        // Valideringsmetoder til de enkelte properties.
         private string ValidateName()
         {
             if (ProductName == null)

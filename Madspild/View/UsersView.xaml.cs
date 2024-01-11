@@ -19,6 +19,7 @@ namespace Madspild.View
     /// <summary>
     /// Interaction logic for UsersView.xaml
     /// </summary>
+    /// // Lavet af Jakob
     public partial class UsersView : Window
     {
         UsersViewModel model = new();

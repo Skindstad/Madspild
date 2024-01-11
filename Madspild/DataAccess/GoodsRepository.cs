@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Madspild.DataAccess
 {
-    internal class GoodsRepository : Repository, IEnumerable<Goods>
+    // Lavet af Jakob
+    public class GoodsRepository : Repository, IEnumerable<Goods>
     {
         private List<Goods> list = [];
 
@@ -24,22 +25,15 @@ namespace Madspild.DataAccess
             return GetEnumerator();
         }
 
-        public void Add(string name, string price, string amount, string limit, string path)
-        {
-            Add(new Goods("", name, price, amount, limit, path));
-        }
-
         public void Search(string name, string price)
         {
             try
             {
-                // Join Category On Goods.Category = Category.Id  Where ProductName LIKE @Name AND Price LIKE @Price AND Category LIKE @Category
-                SqlCommand cmd = new("Select Id, ProductName, Price, Amount, AmountLimit, PicturePath From Goods Where ProductName LIKE @Name AND Price LIKE @Price", connection);
-                cmd.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
-                cmd.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
-               // cmd.Parameters.Add(CreateParam("@Category", category + "%", SqlDbType.NVarChar));
+                SqlCommand command = new("Select Id, ProductName, Price, Amount, AmountLimit, PicturePath From Goods Where ProductName LIKE @Name AND Price LIKE @Price", connection);
+                command.Parameters.Add(CreateParam("@Name", name + "%", SqlDbType.NVarChar));
+                command.Parameters.Add(CreateParam("@Price", price + "%", SqlDbType.NVarChar));
                 connection.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
+                SqlDataReader reader = command.ExecuteReader();
                 list.Clear();
                 while (reader.Read()) list.Add(new Goods(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString()));
                 OnChanged(DbOperation.SELECT, DbModeltype.Goods);
@@ -55,6 +49,11 @@ namespace Madspild.DataAccess
             }
         }
 
+        public void Add(string name, string price, string amount, string limit, string path)
+        {
+            Add(new Goods("", name, price, amount, limit, path));
+        }
+
         public void Add(Goods product)
         {
             string error = "";
@@ -67,7 +66,6 @@ namespace Madspild.DataAccess
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Limit", product.AmountLimit, SqlDbType.NVarChar));
-                    //command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Path", product.Path, SqlDbType.NVarChar));
                     connection.Open();
                     if (command.ExecuteNonQuery() == 1)
@@ -109,7 +107,6 @@ namespace Madspild.DataAccess
                     command.Parameters.Add(CreateParam("@Price", product.Price, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Amount", product.Amount, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Limit", product.AmountLimit, SqlDbType.NVarChar));
-                    //command.Parameters.Add(CreateParam("@Category", product.Category, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Path", product.Path, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Id", id, SqlDbType.NVarChar));
                     connection.Open();

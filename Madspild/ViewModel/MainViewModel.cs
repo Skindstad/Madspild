@@ -11,6 +11,7 @@ using System.Windows.Controls;
 
 namespace Madspild.ViewModel
 {
+    // Lavet af Jakob
     public class MainViewModel : ViewModelBase
     {
         public RelayCommand LoginCommand { get; set; }

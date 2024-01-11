@@ -10,18 +10,18 @@ namespace Madspild.Model
 {
     public class User : IDataErrorInfo, IComparable<User>
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Access { get; set; }
-        public string HomePhone { get; set; }
-        public string WorkPhone { get; set; }
-        public string Address { get; set; }
-        public string Zipcode { get; set; }
-        public string City { get; set; }
+        public string Id { get; set; }  // repræsenterer Id
+        public string Name { get; set; } // repræsenterer Name
+        public string Email { get; set; } // repræsenterer Email
+        public string Password { get; set; } // repræsenterer Password
+        public string Access { get; set; } // repræsenterer Access
+        public string HomePhone { get; set; } // repræsenterer HomePhone
+        public string WorkPhone { get; set; } // repræsenterer WorkPhone
+        public string Address { get; set; } // repræsenterer Address
+        public string Zipcode { get; set; } // repræsenterer Zipcode
+        public string City { get; set; } // repræsenterer City
 
-
+        // Opretter et objekt ved at sætte alle felter til blank.
         public User() 
         {
             Id = "";
@@ -35,6 +35,8 @@ namespace Madspild.Model
             Zipcode = "";
             City = "";
         }
+        // Opretter et objekt, hvor alle felter initialiseres med parametre.
+        // Konstruktøren garanterer ikke, at objektet er lovligt.
         public User(string id, string name, string email, string password, string access, string homePhone, string workPhone, string address, string zipcode, string city)
         {
             Id = id;
@@ -48,7 +50,7 @@ namespace Madspild.Model
             Zipcode = zipcode;
             City = city;
         }
-
+        // Implementerer sammenligning alene på Id.
         public override bool Equals(object? obj)
         {
             try
@@ -71,6 +73,8 @@ namespace Madspild.Model
             return Id.CompareTo(user.Id);
         }
 
+        // Validering af objektet.
+        // Arrayet angiver hvilke properties, der skal valideres.
         private static readonly string[] validatedProperties = { "Name", "Email", "Password", "Access", "HomePhone", "WorkPhone", "Address", "Zipcode" };
 
         public bool IsValid
@@ -113,7 +117,7 @@ namespace Madspild.Model
             }
             return null;
         }
-
+        // Valideringsmetoder til de enkelte properties.
         private string ValidateName()
         {
             if (Name == null)

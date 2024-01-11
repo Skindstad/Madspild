@@ -18,6 +18,7 @@ namespace Madspild.View
     /// <summary>
     /// Interaction logic for CreateUserView.xaml
     /// </summary>
+    /// // Lavet af Jakob
     public partial class CreateUserView : Window
     {
         private UserViewModel model = new(new Model.User(), UsersViewModel.repository);

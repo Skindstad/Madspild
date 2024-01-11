@@ -12,6 +12,7 @@ using System.Windows.Input;
 
 namespace Madspild.ViewModel
 {
+    // Lavet af Jakob
     public class UsersViewModel : ViewModelBase, IDataErrorInfo
     {
 

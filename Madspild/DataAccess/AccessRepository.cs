@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Madspild.DataAccess
 {
+    // Lavet af Jakob
     public class AccessRepository : Repository, IEnumerable<Access>
     {
         private List<Access> list = [];

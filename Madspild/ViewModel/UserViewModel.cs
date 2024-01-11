@@ -10,6 +10,7 @@ using System.Windows.Input;
 
 namespace Madspild.ViewModel
 {
+    // Lavet af Jakob
     public class UserViewModel : ViewModelBase, IDataErrorInfo
     {
         public RelayCommand OkCommand { get; private set; }

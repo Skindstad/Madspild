@@ -6,6 +6,7 @@ namespace Madspild
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// // Lavet af Jakob
     public partial class MainWindow : Window
     {
         private MainViewModel model = new();
