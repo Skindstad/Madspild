@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Madspild.View"
         mc:Ignorable="d"
-        Title="Order" Height="350" Width="525">
+        Title="Order" Height="370" Width="525">
     <DockPanel Margin="10">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Functions">
@@ -16,8 +16,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="40" />
+            <RowDefinition Height="200"/>
             <RowDefinition />
-        </Grid.RowDefinitions>
+            </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -35,8 +36,9 @@
         <TextBox Grid.Row="1" Grid.Column="4" Height="22" VerticalAlignment="Top" Text="{Binding Path=Admin.Amount}" />
 
         <Button Grid.Row="1" Grid.Column="8" Width="60" Height="22" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Search" Command="{Binding Path=Admin.SearchCommand}" />
+            <Button Grid.Row="4" Grid.Column="8" Width="60" Height="22" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Buy" Command="{Binding Path=Basket.BuyCommand}" />
 
-        <DataGrid Name="grid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding Admin.Inventory}">
+            <DataGrid Name="grid" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False" SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding Admin.Inventory}">
             <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">
                         <EventSetter Event="MouseDoubleClick" Handler="Grid_MouseDoubleClick"/>

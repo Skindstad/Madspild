@@ -14,6 +14,7 @@ namespace Madspild.ViewModel
     {
         public RelayCommand AddCommand { get; private set; }
         public RelayCommand BoughtCommand { get; private set; }
+        public RelayCommand BuyCommand { get; private set; }
 
         public List<string> user = MainViewModel.user;
 
@@ -26,6 +27,7 @@ namespace Madspild.ViewModel
             repository.RepositoryChanged += ModelChanged;
             Search();
             BoughtCommand = new RelayCommand(p => (new Forside()).ShowDialog());
+            BuyCommand = new RelayCommand(p => Buy());
             //AddCommand = new RelayCommand(p => Add(), p => CanAdd());
         }
 
@@ -212,6 +214,18 @@ namespace Madspild.ViewModel
         public bool CanAdd()
         {
             return basket.IsValid;
+        }
+
+        public void Buy()
+        {
+            try
+            {
+                repository.Buy(user[2]);
+            }
+            catch (Exception ex)
+            {
+                OnWarning(ex.Message);
+            }
         }
 
         string IDataErrorInfo.Error
