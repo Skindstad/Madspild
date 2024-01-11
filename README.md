@@ -1,9 +1,25 @@
 # Madspild
 
-1. Laven en App.config hvor du putter denne har kode mellem Configuration:
-    <add name="post" connectionString="Data Source=YourComputerLokaleHost;
+1. Inde på Madspild er der en mappe hedder "DataAndQuerys"
+2. Åben Microsoft SQL Server Management Studio.
+3. Klik på Connect
+4. Åben "OprettesAfDBOgTables" inde på "DataAndQuerys"
+5. Marker Create Database "FoodWaste" og Execute
+6. Vælge at du på "FoodWaste"
+7. Marker alle Tables på siden og Execute
+8. Åben "Data" Inde på "DataAndQuerys"
+9. Tryk på Execute
+10. Åben "Madspild Solution" der er på "Madspild" Eller oppen Visual Studio og find Madspild file
+11 Højre klik på "Madspild" i "Solution Explorer"
+12. Gå ned på "add" og tryk på "new item".
+13. Vælg "Application Configuration File" og tryk "Add"
+14. Put koden neden under ind på "app.config" mellem "Configuration".
+<connectionStrings>
+	<add name="post" connectionString="Data Source=YourComputerLokaleHost;;
          Initial Catalog=Databasen;Integrated Security=True" providerName="System.Data.SqlClient"/>
-  </connectionStrings>
+</connectionStrings>
+15. Skift Catalog om til "FoodWaste"
+16. Åben "Microsoft SQL Server Management Studio". Inden du connect var der en text with din server name tag det.
+17. Åben app.config og skift "YourComputerLokaleHost" i Source til dit server name.
 
-Lave om på Hvor der står YourComputerLokaleHost som skal være det du finder nå du åbner Microsoft SQL Server Management Studio. Tage det der står i Server name.
-Lave op på Database der står i catalog op i koden det skal være navnet på databasen som er FoodWaste.
+Nu kan du køre programmet

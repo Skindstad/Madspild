@@ -1223,8 +1223,8 @@ insert into Zipcodes (Code, City) values ('9990', 'Skagen');
 
 
 /* AccessRight */
-insert into Access(Id, AccessName) values ('Admin');
-insert into Access(Id, AccessName) values ('User');
+insert into Access(AccessName) values ('Admin');
+insert into Access(AccessName) values ('User');
 
 /* Users */
 Insert into Users(Email, Password, Access, PersonName, HomePhone, WorkPhone, Address, Zipcode) Values('admin@dania.dk', 'secret', 1, 'Admin', '0000000000', '0000000000', 'Bredgadevej 10', '8800');
