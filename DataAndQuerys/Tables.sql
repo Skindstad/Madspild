@@ -1,6 +1,4 @@
-Drop Database FoodWaste;
-Create Database FoodWaste;
-
+use FoodWaste;
 
 Create Table Access 
 (
