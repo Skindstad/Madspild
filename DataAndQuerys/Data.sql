@@ -1,3 +1,4 @@
+use FoodWaste;
 /* just to make sure there no data in the system*/
 Delete From Zipcodes;
 Delete From Access;
